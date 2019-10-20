@@ -15,7 +15,7 @@ public class TeamManager {
 
     private static Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
     private static Team vampiresTeam = scoreboard.registerNewTeam(Teams.Vampires.name()), survivorTeam = scoreboard.registerNewTeam(Teams.Survivor.name());
-    private static Objective vampiresObjective = scoreboard.registerNewObjective("vampiresScore", "dummy"), survivorObjective = scoreboard.registerNewObjective("SurvivorScore", "dummy");
+    private static Objective vampiresObjective = scoreboard.registerNewObjective("vampiresScore", "dummy"), survivorObjective = scoreboard.registerNewObjective("survivorScore", "dummy");
     private static HashMap<Player, TeamManager> teamManagerHashMap = new HashMap<>();
     private static List<Player> vampires = new ArrayList<>(), survivor = new ArrayList<>(), spectator = new ArrayList<>();
     private Player player;
@@ -31,7 +31,6 @@ public class TeamManager {
         survivorObjective.setDisplayName("§5Survivor");
         survivorTeam.setNameTagVisibility(NameTagVisibility.ALWAYS);
         vampiresTeam.setNameTagVisibility(NameTagVisibility.ALWAYS);
-
     }
 
     public void setTeam(Teams team){
