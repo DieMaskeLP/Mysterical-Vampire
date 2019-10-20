@@ -26,6 +26,14 @@ public class TeamManager {
         teamManagerHashMap.put(target, this);
     }
 
+    public TeamManager(){
+    }
+
+    public void setPlayer(Player target){
+        player = target;
+        teamManagerHashMap.put(target, this);
+    }
+
     public static void initScoreboards(){
         vampiresObjective.setDisplayName("§4Vampire");
         survivorObjective.setDisplayName("§5Survivor");
