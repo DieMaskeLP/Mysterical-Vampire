@@ -5,6 +5,7 @@ import de.nexxus.vampire.manager.GameStates;
 import de.nexxus.vampire.manager.Manager;
 import de.nexxus.vampire.manager.TeamManager;
 import de.nexxus.vampire.manager.Teams;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

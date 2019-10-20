@@ -22,8 +22,8 @@ public class ConfigManager {
         return config;
     }
 
-    public boolean existConfig(String paht){
-        return config.contains(paht);
+    public boolean existConfig(String path){
+        return config.contains(path);
     }
 
     public void setConfig(String path, Object value){

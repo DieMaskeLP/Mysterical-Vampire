@@ -26,7 +26,6 @@ public class Main extends JavaPlugin {
     public void onEnable(){
         manager = new Manager();
         plugin = this;
-        prefix = (String) getManager().getConfigManager().getOrSet("server.prefix", "");
     }
 
 }
