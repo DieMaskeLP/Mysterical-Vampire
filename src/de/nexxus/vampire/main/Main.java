@@ -3,10 +3,18 @@ package de.nexxus.vampire.main;
 import de.nexxus.vampire.manager.GameStateManager;
 import de.nexxus.vampire.manager.Manager;
 import de.nexxus.vampire.manager.TeamManager;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
 
+    public static Plugin getPlugin() {
+        return plugin;
+    }
+
+    public static String prefix;
+
+    private static Plugin plugin;
 
     public static Manager getManager() {
         return manager;
@@ -17,6 +25,8 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable(){
         manager = new Manager();
+        plugin = this;
+        prefix = (String) getManager().getConfigManager().getOrSet("server.prefix", "");
     }
 
 }

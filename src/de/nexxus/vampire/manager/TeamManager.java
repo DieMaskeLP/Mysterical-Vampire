@@ -18,7 +18,7 @@ public class TeamManager {
     private static Team vampiresTeam = scoreboard.registerNewTeam(Teams.Vampire.name()), survivorTeam = scoreboard.registerNewTeam(Teams.Survivor.name());
     private static Objective vampiresObjective = scoreboard.registerNewObjective("vampiresScore", "dummy"), survivorObjective = scoreboard.registerNewObjective("survivorScore", "dummy");
     private static HashMap<Player, TeamManager> teamManagerHashMap = new HashMap<>();
-    private static Player vampires;
+    private static Player vampire;
     private static List<Player> survivor = new ArrayList<>(), spectator = new ArrayList<>();
     private Player player;
     private Teams team;
@@ -45,7 +45,7 @@ public class TeamManager {
 
     public void setTeam(Teams team){
         if (team==Teams.Vampire){
-            vampires = player;
+            vampire = player;
             this.team = team;
             survivor.remove(player);
             spectator.remove(player);
@@ -79,6 +79,8 @@ public class TeamManager {
             case Survivor:
                 return survivor;
             case Vampire:
+                List<Player> vampires = new ArrayList<>();
+                vampires.add(vampire);
                 return vampires;
             case Spectator:
                 return spectator;
