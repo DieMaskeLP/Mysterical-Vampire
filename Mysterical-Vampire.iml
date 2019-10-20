@@ -7,5 +7,16 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://S:/Minecraft Server (Spigot 1.8)/start.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://S:/Minecraft Server (Spigot 1.8)/start.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
