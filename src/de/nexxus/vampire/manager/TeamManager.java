@@ -7,6 +7,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import javax.xml.bind.Marshaller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,10 +15,11 @@ import java.util.List;
 public class TeamManager {
 
     private static Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-    private static Team vampiresTeam = scoreboard.registerNewTeam(Teams.Vampires.name()), survivorTeam = scoreboard.registerNewTeam(Teams.Survivor.name());
+    private static Team vampiresTeam = scoreboard.registerNewTeam(Teams.Vampire.name()), survivorTeam = scoreboard.registerNewTeam(Teams.Survivor.name());
     private static Objective vampiresObjective = scoreboard.registerNewObjective("vampiresScore", "dummy"), survivorObjective = scoreboard.registerNewObjective("survivorScore", "dummy");
     private static HashMap<Player, TeamManager> teamManagerHashMap = new HashMap<>();
-    private static List<Player> vampires = new ArrayList<>(), survivor = new ArrayList<>(), spectator = new ArrayList<>();
+    private static Player vampires;
+    private static List<Player> survivor = new ArrayList<>(), spectator = new ArrayList<>();
     private Player player;
     private Teams team;
 
@@ -42,8 +44,8 @@ public class TeamManager {
     }
 
     public void setTeam(Teams team){
-        if (team==Teams.Vampires){
-            vampires.add(player);
+        if (team==Teams.Vampire){
+            vampires = player;
             this.team = team;
             survivor.remove(player);
             spectator.remove(player);
@@ -53,7 +55,6 @@ public class TeamManager {
             if (team==Teams.Survivor){
                 survivor.add(player);
                 this.team = team;
-                survivor.remove(player);
                 spectator.remove(player);
                 vampiresTeam.removePlayer(player);
                 survivorTeam.addPlayer(player);
@@ -62,7 +63,6 @@ public class TeamManager {
                     spectator.add(player);
                     this.team = team;
                     survivor.remove(player);
-                    vampires.remove(player);
                     vampiresTeam.removePlayer(player);
                     survivorTeam.removePlayer(player);
                 }
@@ -78,7 +78,7 @@ public class TeamManager {
         switch (team){
             case Survivor:
                 return survivor;
-            case Vampires:
+            case Vampire:
                 return vampires;
             case Spectator:
                 return spectator;

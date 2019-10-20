@@ -17,5 +17,30 @@ public class GameStateManager {
         return gameState == currentGameState;
     }
 
+    public void startGameState(GameStates gameState){
+        switch (gameState){
+            case LOBBY:
+                lobby();
+                break;
+            case END:
+                end();
+                break;
+            case INGAME:
+                ingame();
+                break;
+        }
+    }
+
+    private void lobby(){
+
+    }
+
+    private void ingame(){
+
+    }
+
+    private void end(){
+
+    }
 
 }

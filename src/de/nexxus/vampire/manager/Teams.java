@@ -2,7 +2,7 @@ package de.nexxus.vampire.manager;
 
 public enum Teams {
 
-    Vampires,
+    Vampire,
     Survivor,
     Spectator
 
