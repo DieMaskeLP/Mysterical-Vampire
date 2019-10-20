@@ -1,4 +1,4 @@
-package de.nexxus.vampire.Manager;
+package de.nexxus.vampire.manager;
 
 public enum Teams {
 

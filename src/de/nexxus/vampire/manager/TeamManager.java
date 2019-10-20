@@ -1,4 +1,4 @@
-package de.nexxus.vampire.Manager;
+package de.nexxus.vampire.manager;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -30,6 +30,8 @@ public class TeamManager {
         vampiresObjective.setDisplayName("§4Vampire");
         survivorObjective.setDisplayName("§5Survivor");
         survivorTeam.setNameTagVisibility(NameTagVisibility.ALWAYS);
+        vampiresTeam.setNameTagVisibility(NameTagVisibility.ALWAYS);
+
     }
 
     public void setTeam(Teams team){

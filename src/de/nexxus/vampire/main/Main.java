@@ -1,4 +1,4 @@
-package de.nexxus.vampire.Main;
+package de.nexxus.vampire.main;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
