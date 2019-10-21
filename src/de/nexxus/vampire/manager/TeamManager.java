@@ -1,5 +1,6 @@
 package de.nexxus.vampire.manager;
 
+import com.google.common.collect.Lists;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.NameTagVisibility;
@@ -7,7 +8,6 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
-import javax.xml.bind.Marshaller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,9 +19,14 @@ public class TeamManager {
     private static Objective vampiresObjective = scoreboard.registerNewObjective("vampireScore", "dummy"), survivorObjective = scoreboard.registerNewObjective("survivorScore", "dummy");
     private static HashMap<Player, TeamManager> teamManagerHashMap = new HashMap<>();
     public static Player vampire;
-    public static List<Player> survivor = new ArrayList<>(), spectator = new ArrayList<>(), allPlayers = new ArrayList<>();
     private Player player;
     private Teams team;
+
+    public static List<Player> allPlayers = Lists.newArrayList();
+
+    private static List<Player> vampires = Lists.newArrayList();
+    private static List<Player> survivors = Lists.newArrayList();
+    private static List<Player> spectators = Lists.newArrayList();
 
     public TeamManager(Player target){
         player = target;
@@ -45,22 +50,22 @@ public class TeamManager {
         if (team==Teams.VAMPIRE){
             vampire = player;
             this.team = team;
-            survivor.remove(player);
-            spectator.remove(player);
+            survivors.remove(player);
+            spectators.remove(player);
             vampiresTeam.addPlayer(player);
             survivorTeam.removePlayer(player);
         } else {
             if (team==Teams.SURVIVOR){
-                survivor.add(player);
+                survivors.add(player);
                 this.team = team;
-                spectator.remove(player);
+                spectators.remove(player);
                 vampiresTeam.removePlayer(player);
                 survivorTeam.addPlayer(player);
             } else {
                 if (team== Teams.SPECTATOR){
-                    spectator.add(player);
+                    spectators.add(player);
                     this.team = team;
-                    survivor.remove(player);
+                    survivors.remove(player);
                     vampiresTeam.removePlayer(player);
                     survivorTeam.removePlayer(player);
                 }
@@ -75,13 +80,13 @@ public class TeamManager {
     public static List<Player> getPlayersByTeam(Teams team){
         switch (team){
             case SURVIVOR:
-                return survivor;
+                return survivors;
             case VAMPIRE:
                 List<Player> vampires = new ArrayList<>();
                 vampires.add(vampire);
                 return vampires;
             case SPECTATOR:
-                return spectator;
+                return spectators;
             default:
                 return null;
         }
@@ -89,6 +94,17 @@ public class TeamManager {
 
     public Teams getTeam(){
         return team;
+    }
+
+    public Teams getPlayerTeam(Player player) {
+       if(spectators.contains(player)) {
+           return Teams.SPECTATOR;
+       } else if(survivors.contains(player)) {
+           return Teams.SURVIVOR;
+       } else if(vampires.contains(player)) {
+           return Teams.VAMPIRE;
+       } else
+           return null;
     }
 
 }

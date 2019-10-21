@@ -1,6 +1,7 @@
 package de.nexxus.vampire.main;
 
 import de.nexxus.vampire.commands.SetupCommand;
+import de.nexxus.vampire.gamestate.GameStateManager;
 import de.nexxus.vampire.listener.EventListener;
 import de.nexxus.vampire.listener.PlayerQuitListener;
 import de.nexxus.vampire.manager.ConfigFileUtil;
@@ -18,21 +19,23 @@ import java.util.Set;
 
 public class Main extends JavaPlugin {
 
-    public static Plugin getPlugin() {
+    public static Main getPlugin() {
         return plugin;
     }
 
-    private static Plugin plugin;
+    private static Main plugin;
 
     public static Manager getManager() {
         return manager;
     }
 
     private static Manager manager;
+    private GameStateManager gameStateManager;
 
     @Override
     public void onEnable(){
         manager = new Manager();
+        gameStateManager = new GameStateManager();
         plugin = this;
         registerListener(new EventListener());
         registerListener(new PlayerQuitListener());
@@ -47,4 +50,7 @@ public class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(listener, this);
     }
 
+    public GameStateManager getGameStateManager() {
+        return gameStateManager;
+    }
 }
