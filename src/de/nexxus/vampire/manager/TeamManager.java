@@ -7,6 +7,7 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import javax.xml.bind.Marshaller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +19,7 @@ public class TeamManager {
     private static Objective vampiresObjective = scoreboard.registerNewObjective("vampireScore", "dummy"), survivorObjective = scoreboard.registerNewObjective("survivorScore", "dummy");
     private static HashMap<Player, TeamManager> teamManagerHashMap = new HashMap<>();
     public static Player vampire;
-    public static List<Player> survivor = new ArrayList<>(), spectator = new ArrayList<>();
+    public static List<Player> survivor = new ArrayList<>(), spectator = new ArrayList<>(), allPlayers = new ArrayList<>();
     private Player player;
     private Teams team;
 

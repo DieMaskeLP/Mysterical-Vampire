@@ -2,7 +2,6 @@ package de.nexxus.vampire.listener;
 
 import de.nexxus.vampire.countdown.LobbyCountdown;
 import de.nexxus.vampire.gamestate.GameState;
-import de.nexxus.vampire.gamestate.GameStateManager;
 import de.nexxus.vampire.main.Main;
 import de.nexxus.vampire.manager.*;
 import de.nexxus.vampire.utils.Data;
@@ -33,6 +32,7 @@ public class EventListener implements Listener {
                     /* Teleport the player to the lobby spawn
                     *  Edit: DONE
                     */
+                    TeamManager.allPlayers.add(e.getPlayer());
                     LocationUtil locationUtil = new LocationUtil("Lobby");
                     if(locationUtil.loadLocation() != null) {
                         player.teleport(locationUtil.loadLocation());
