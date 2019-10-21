@@ -44,6 +44,29 @@ public class TeamManager {
         survivorTeam.setNameTagVisibility(NameTagVisibility.ALWAYS);
         vampiresTeam.setNameTagVisibility(NameTagVisibility.ALWAYS);
         survivorTeam.setAllowFriendlyFire(false);
+        for (Player t : allPlayers){
+            switch (getTeamManagerByPlayer(t).getTeam()){
+                case VAMPIRE:
+                    t.setDisplayName("§4" + t.getName());
+                    t.setPlayerListName("§4" + t.getName());
+                    break;
+
+                case SURVIVOR:
+                    t.setDisplayName("§a" + t.getName());
+                    t.setPlayerListName("§a" + t.getName());
+                    break;
+
+                case SPECTATOR:
+                    t.setDisplayName("§7" + t.getName());
+                    t.setPlayerListName("§7" + t.getName());
+                    break;
+
+                default:
+
+                    break;
+            }
+        }
+
     }
 
     public void setTeam(Teams team){
@@ -96,7 +119,7 @@ public class TeamManager {
         return team;
     }
 
-    public Teams getPlayerTeam(Player player) {
+    public static Teams getPlayerTeam(Player player) {
        if(spectators.contains(player)) {
            return Teams.SPECTATOR;
        } else if(survivors.contains(player)) {
