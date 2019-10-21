@@ -38,6 +38,10 @@ public class EventListener implements Listener {
                         player.teleport(locationUtil.loadLocation());
                     } else
                         Bukkit.getConsoleSender().sendMessage("§cDie Lobby-Location wurde noch nicht gesetzt!");
+                } else {
+                    if (manager.getGameStateManager().getCurrentGameState() == null){
+                        manager.getGameStateManager().setGameState(GameState.LOBBY_STATE);
+                    }
                 }
             }
         }

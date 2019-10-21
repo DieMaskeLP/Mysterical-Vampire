@@ -14,9 +14,9 @@ import java.util.List;
 
 public class TeamManager {
 
-    private static Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-    private static Team vampiresTeam = scoreboard.registerNewTeam(Teams.VAMPIRE.name()), survivorTeam = scoreboard.registerNewTeam(Teams.SURVIVOR.name());
-    private static Objective vampiresObjective = scoreboard.registerNewObjective("vampireScore", "dummy"), survivorObjective = scoreboard.registerNewObjective("survivorScore", "dummy");
+    private static Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard(), survivorSB = Bukkit.getScoreboardManager().getNewScoreboard();
+    private static Team vampiresTeam = scoreboard.registerNewTeam(Teams.VAMPIRE.name()), survivorTeam = survivorSB.registerNewTeam(Teams.SURVIVOR.name());
+    private static Objective vampiresObjective = scoreboard.registerNewObjective("vampireScore", "dummy"), survivorObjective = survivorSB.registerNewObjective("survivorScore", "dummy");
     private static HashMap<Player, TeamManager> teamManagerHashMap = new HashMap<>();
     public static Player vampire;
     private Player player;
@@ -39,32 +39,16 @@ public class TeamManager {
     }
 
     public static void initScoreboards(){
-        vampiresObjective.setDisplayName("§4Vampire");
-        survivorObjective.setDisplayName("§5Survivor");
         survivorTeam.setNameTagVisibility(NameTagVisibility.ALWAYS);
         vampiresTeam.setNameTagVisibility(NameTagVisibility.ALWAYS);
         survivorTeam.setAllowFriendlyFire(false);
-        for (Player t : allPlayers){
-            switch (getTeamManagerByPlayer(t).getTeam()){
-                case VAMPIRE:
-                    t.setDisplayName("§4" + t.getName());
-                    t.setPlayerListName("§4" + t.getName());
-                    break;
-
-                case SURVIVOR:
-                    t.setDisplayName("§a" + t.getName());
-                    t.setPlayerListName("§a" + t.getName());
-                    break;
-
-                case SPECTATOR:
-                    t.setDisplayName("§7" + t.getName());
-                    t.setPlayerListName("§7" + t.getName());
-                    break;
-
-                default:
-
-                    break;
-            }
+        vampire.setScoreboard(scoreboard);
+        vampire.setPlayerListName("§4" + vampire.getName());
+        vampire.setDisplayName("§4" + vampire.getName());
+        for (Player t : survivors){
+            t.setScoreboard(survivorSB);
+            t.setPlayerListName("§4" + t.getName());
+            t.setDisplayName("§4" + t.getName());
         }
 
     }
@@ -104,15 +88,15 @@ public class TeamManager {
         switch (team){
             case SURVIVOR:
                 return survivors;
-            case VAMPIRE:
-                List<Player> vampires = new ArrayList<>();
-                vampires.add(vampire);
-                return vampires;
             case SPECTATOR:
                 return spectators;
             default:
                 return null;
         }
+    }
+
+    public static Player getVampire(){
+        return vampire;
     }
 
     public Teams getTeam(){

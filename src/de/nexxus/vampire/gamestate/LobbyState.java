@@ -21,8 +21,12 @@ public class LobbyState extends GameState {
     public void stop() {
         System.out.println("LobbyState stopped!");
         Random random = new Random();
-        random.ints(0, Bukkit.getServer().getOnlinePlayers().size());
-        Player vampire = TeamManager.allPlayers.get(random.nextInt());
+        Player vampire = null;
+        if (0 != Bukkit.getServer().getOnlinePlayers().size()-1){
+            random.ints(0, Bukkit.getServer().getOnlinePlayers().size()-1);
+            vampire = TeamManager.allPlayers.get(0);
+        }
+        vampire = TeamManager.allPlayers.get(0);
         new TeamManager(vampire).setTeam(Teams.VAMPIRE);
         TeamManager.allPlayers.remove(vampire);
         for (Player t : TeamManager.allPlayers){

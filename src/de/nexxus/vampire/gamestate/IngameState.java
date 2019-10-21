@@ -11,9 +11,9 @@ public class IngameState extends GameState {
     @Override
     public void start() {
         System.out.println("IngameState started!");
-        Player vampire = TeamManager.getPlayersByTeam(Teams.VAMPIRE).get(0);
+        Player vampire = TeamManager.getVampire();
         TeamManager.initScoreboards();
-        vampire.sendTitle("Du bist der §4Vampir", "");
+        vampire.sendTitle("§eDu bist der §4§lVampir", "");
     }
 
     @Override
