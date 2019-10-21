@@ -38,6 +38,7 @@ public class TeamManager {
         survivorObjective.setDisplayName("§5Survivor");
         survivorTeam.setNameTagVisibility(NameTagVisibility.ALWAYS);
         vampiresTeam.setNameTagVisibility(NameTagVisibility.ALWAYS);
+        survivorTeam.setAllowFriendlyFire(false);
     }
 
     public void setTeam(Teams team){
