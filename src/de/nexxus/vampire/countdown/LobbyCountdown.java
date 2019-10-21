@@ -31,25 +31,21 @@ public class LobbyCountdown extends Countdown {
     @Override
     public void start() {
         isRunning = true;
-        taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), new Runnable() {
-
-            @Override
-            public void run() {
-                switch (seconds) {
-                    case 20: case 10: case 5: case 4: case 3: case 2:
-                        Bukkit.broadcastMessage(Data.PREFIX + "§7Das Spiel startet in §a" + seconds + " §7Sekunden.");
+        taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), () -> {
+            switch (seconds) {
+                case 20: case 10: case 5: case 4: case 3: case 2:
+                    Bukkit.broadcastMessage(Data.PREFIX + "§7Das Spiel startet in §a" + seconds + " §7Sekunden.");
+                    break;
+                case 1:
+                    Bukkit.broadcastMessage(Data.PREFIX + "§7Das Spiel startet in §aeiner §7Sekunde.");
+                    break;
+                case 0:
+                    gameStateManager.setGameState(GameStates.INGAME);
+                    break;
+                    default:
                         break;
-                    case 1:
-                        Bukkit.broadcastMessage(Data.PREFIX + "§7Das Spiel startet in §aeiner §7Sekunde.");
-                        break;
-                    case 0:
-                        gameStateManager.setGameState(GameStates.INGAME);
-                        break;
-                        default:
-                            break;
-                }
-                seconds--;
             }
+            seconds--;
         }, 0, 20);
     }
 
