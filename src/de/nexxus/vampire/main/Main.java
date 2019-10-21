@@ -1,8 +1,6 @@
 package de.nexxus.vampire.main;
 
-import de.nexxus.vampire.manager.GameStateManager;
 import de.nexxus.vampire.manager.Manager;
-import de.nexxus.vampire.manager.TeamManager;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
