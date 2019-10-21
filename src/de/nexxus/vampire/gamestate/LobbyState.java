@@ -4,6 +4,7 @@ package de.nexxus.vampire.gamestate;
 
 import de.nexxus.vampire.manager.TeamManager;
 import de.nexxus.vampire.manager.Teams;
+import de.nexxus.vampire.utils.Data;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -14,7 +15,6 @@ public class LobbyState extends GameState {
     @Override
     public void start() {
         System.out.println("LobbyState started!");
-
     }
 
     @Override

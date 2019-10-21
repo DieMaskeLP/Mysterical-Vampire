@@ -55,8 +55,11 @@ public class LobbyCountdown extends Countdown {
     }
 
     public void startIdle() {
-        isIdling = true;
-        idleID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), () -> Bukkit.broadcastMessage(Data.PREFIX + "§7Bis zum Spielstart fehlen noch §c" + missing_players + " §7Spieler!"), 0, 20 * IDLE_TIME);
+        if (!isIdling){
+            isIdling = true;
+            idleID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), () -> Bukkit.broadcastMessage(Data.PREFIX + "§7Bis zum Spielstart fehlen noch §c" + missing_players + " §7Spieler!"), 0, 20 * IDLE_TIME);
+        }
+
     }
 
     public void stopIdle() {
@@ -64,6 +67,10 @@ public class LobbyCountdown extends Countdown {
             Bukkit.getScheduler().cancelTask(idleID);
             isIdling = false;
         }
+    }
+
+    public boolean isIdling(){
+        return isIdling;
     }
 
     public boolean isRunning() {

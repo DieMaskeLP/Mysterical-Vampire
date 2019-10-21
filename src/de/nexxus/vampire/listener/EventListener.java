@@ -38,6 +38,22 @@ public class EventListener implements Listener {
                         player.teleport(locationUtil.loadLocation());
                     } else
                         Bukkit.getConsoleSender().sendMessage("§cDie Lobby-Location wurde noch nicht gesetzt!");
+                    LobbyCountdown countdown = Main.getManager().getLobbyCountdown();
+                    if(Bukkit.getOnlinePlayers().size() < Data.MIN_PLAYERS) {
+                        if(countdown.isRunning()) {
+                            countdown.stop();
+                            countdown.startIdle();
+                        }
+                    }
+
+                    if (Bukkit.getOnlinePlayers().size() >= Data.MIN_PLAYERS){
+                        if (!countdown.isRunning()){
+                            if (countdown.isIdling()){
+                                countdown.stopIdle();
+                            }
+                            countdown.start();
+                        }
+                    }
                 } else {
                     if (manager.getGameStateManager().getCurrentGameState() == null){
                         manager.getGameStateManager().setGameState(GameState.LOBBY_STATE);
