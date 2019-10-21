@@ -1,6 +1,8 @@
 package de.nexxus.vampire.manager;
 
 
+import de.nexxus.vampire.utils.Data;
+
 public class GameStateManager {
 
     public GameStateManager(){
@@ -8,7 +10,7 @@ public class GameStateManager {
     }
 
 
-    private static int maxPlayer = 9;
+
     private static GameStates currentGameState;
 
     public void setGameState(GameStates gameState){
@@ -24,7 +26,11 @@ public class GameStateManager {
     }
 
     public int getMaxPlayer(){
-        return maxPlayer;
+        return Data.MAX_PLAYERS;
+    }
+
+    public int getMinPlayer(){
+        return Data.MIN_PLAYERS;
     }
 
 

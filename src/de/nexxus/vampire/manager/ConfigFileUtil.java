@@ -29,7 +29,7 @@ public class ConfigFileUtil {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                System.out.println("[Vampire] config.yml konnte nicht erstellt werden!");
+                System.out.println("[Vampire] " + file.getName() + " konnte nicht erstellt werden!");
             }
             config.addDefault("Messages.Prefix", "&8[&5Mystical&8-&4Vampire&8] ");
             config.options().copyDefaults(true);

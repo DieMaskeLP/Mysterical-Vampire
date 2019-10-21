@@ -10,8 +10,7 @@ import org.bukkit.Bukkit;
 
 public class LobbyCountdown extends Countdown {
 
-    private static final int IDLE_TIME = 15;
-    private static final int COUNTDOWN_TIME = 20;
+    private static final int IDLE_TIME = 15, COUNTDOWN_TIME = 20;
 
     private GameStateManager gameStateManager;
 
@@ -42,8 +41,6 @@ public class LobbyCountdown extends Countdown {
                 case 0:
                     gameStateManager.setGameState(GameStates.INGAME);
                     break;
-                    default:
-                        break;
             }
             seconds--;
         }, 0, 20);
@@ -59,12 +56,7 @@ public class LobbyCountdown extends Countdown {
 
     public void startIdle() {
         isIdling = true;
-        idleID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), new Runnable() {
-            @Override
-            public void run() {
-                Bukkit.broadcastMessage(Data.PREFIX + "§7Bis zum Spielstart fehlen noch §c" + missing_players + " §7Spieler!");
-            }
-        }, 0, 20 * IDLE_TIME);
+        idleID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), () -> Bukkit.broadcastMessage(Data.PREFIX + "§7Bis zum Spielstart fehlen noch §c" + missing_players + " §7Spieler!"), 0, 20 * IDLE_TIME);
     }
 
     public void stopIdle() {
