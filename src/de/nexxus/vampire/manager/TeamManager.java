@@ -14,7 +14,7 @@ import java.util.List;
 public class TeamManager {
 
     private static Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-    private static Team vampiresTeam = scoreboard.registerNewTeam(Teams.Vampire.name()), survivorTeam = scoreboard.registerNewTeam(Teams.Survivor.name());
+    private static Team vampiresTeam = scoreboard.registerNewTeam(Teams.VAMPIRE.name()), survivorTeam = scoreboard.registerNewTeam(Teams.SURVIVOR.name());
     private static Objective vampiresObjective = scoreboard.registerNewObjective("vampireScore", "dummy"), survivorObjective = scoreboard.registerNewObjective("survivorScore", "dummy");
     private static HashMap<Player, TeamManager> teamManagerHashMap = new HashMap<>();
     private static Player vampire;
@@ -40,7 +40,7 @@ public class TeamManager {
     }
 
     public void setTeam(Teams team){
-        if (team==Teams.Vampire){
+        if (team==Teams.VAMPIRE){
             vampire = player;
             this.team = team;
             survivor.remove(player);
@@ -48,14 +48,14 @@ public class TeamManager {
             vampiresTeam.addPlayer(player);
             survivorTeam.removePlayer(player);
         } else {
-            if (team==Teams.Survivor){
+            if (team==Teams.SURVIVOR){
                 survivor.add(player);
                 this.team = team;
                 spectator.remove(player);
                 vampiresTeam.removePlayer(player);
                 survivorTeam.addPlayer(player);
             } else {
-                if (team== Teams.Spectator){
+                if (team== Teams.SPECTATOR){
                     spectator.add(player);
                     this.team = team;
                     survivor.remove(player);
@@ -72,25 +72,21 @@ public class TeamManager {
 
     public static List<Player> getPlayersByTeam(Teams team){
         switch (team){
-            case Survivor:
+            case SURVIVOR:
                 return survivor;
-            case Vampire:
+            case VAMPIRE:
                 List<Player> vampires = new ArrayList<>();
                 vampires.add(vampire);
                 return vampires;
-            case Spectator:
+            case SPECTATOR:
                 return spectator;
             default:
                 return null;
         }
     }
 
-
-
     public Teams getTeam(){
         return team;
     }
-
-
 
 }
