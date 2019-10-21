@@ -1,7 +1,10 @@
 package de.nexxus.vampire.main;
 
+import de.nexxus.vampire.commands.BuildCommand;
 import de.nexxus.vampire.commands.SetupCommand;
+import de.nexxus.vampire.gamestate.GameState;
 import de.nexxus.vampire.gamestate.GameStateManager;
+import de.nexxus.vampire.listener.DeathListener;
 import de.nexxus.vampire.listener.EventListener;
 import de.nexxus.vampire.listener.PlayerQuitListener;
 import de.nexxus.vampire.manager.ConfigFileUtil;
@@ -43,6 +46,9 @@ public class Main extends JavaPlugin {
         getCommand("join").setExecutor(new SetPlayerTeamCommand());
         getCommand("state").setExecutor(new StartGameStateCommand());
         ConfigFileUtil.setupFiles();
+        manager.getGameStateManager().setGameState(GameState.LOBBY_STATE);
+        getCommand("build").setExecutor(new BuildCommand());
+        registerListener(new DeathListener());
 
     }
 

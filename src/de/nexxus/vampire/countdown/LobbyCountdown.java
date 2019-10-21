@@ -14,7 +14,7 @@ public class LobbyCountdown extends Countdown {
 
     private GameStateManager gameStateManager;
 
-    private int missing_players = Data.MIN_PLAYERS - Bukkit.getOnlinePlayers().size();
+    private int missing_players = Data.MIN_PLAYERS - Bukkit.getOnlinePlayers().size()-1;
 
     private int seconds;
     private int idleID;
@@ -40,6 +40,12 @@ public class LobbyCountdown extends Countdown {
                     break;
                 case 0:
                     gameStateManager.setGameState(GameState.INGAME_STATE);
+                    if (isRunning){
+                        stop();
+                    }
+                    if (isIdling){
+                        stopIdle();
+                    }
                     break;
             }
             seconds--;

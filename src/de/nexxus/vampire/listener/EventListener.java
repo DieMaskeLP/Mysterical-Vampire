@@ -23,12 +23,14 @@ public class EventListener implements Listener {
             TeamManager teamManager = manager.getTeamManager(e.getPlayer());
             teamManager.setTeam(Teams.SPECTATOR);
             player.setGameMode(GameMode.SPECTATOR);
-            player.sendMessage("§7Du bist nun ein Zuschauer");
+            player.sendMessage(Data.PREFIX + "§7Du bist nun ein Zuschauer");
         } else {
             if (manager.getGameStateManager().isCurrentGameState(GameState.ENDING_STATE)){
                 player.kickPlayer("§cDas Spiel endet gerade!");
             } else {
                 if (manager.getGameStateManager().isCurrentGameState(GameState.LOBBY_STATE)){
+                    e.setJoinMessage(Data.PREFIX + "§6" + e.getPlayer().getName() + " §8ist dem Spiel beigetreten.");
+
                     /* Teleport the player to the lobby spawn
                     *  Edit: DONE
                     */
@@ -42,6 +44,8 @@ public class EventListener implements Listener {
                     if(Bukkit.getOnlinePlayers().size() < Data.MIN_PLAYERS) {
                         if(countdown.isRunning()) {
                             countdown.stop();
+                        }
+                        if (!countdown.isIdling()){
                             countdown.startIdle();
                         }
                     }
@@ -53,10 +57,6 @@ public class EventListener implements Listener {
                             }
                             countdown.start();
                         }
-                    }
-                } else {
-                    if (manager.getGameStateManager().getCurrentGameState() == null){
-                        manager.getGameStateManager().setGameState(GameState.LOBBY_STATE);
                     }
                 }
             }

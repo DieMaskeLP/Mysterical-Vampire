@@ -21,12 +21,7 @@ public class TeamManager {
     public static Player vampire;
     private Player player;
     private Teams team;
-
-    public static List<Player> allPlayers = Lists.newArrayList();
-
-    private static List<Player> vampires = Lists.newArrayList();
-    private static List<Player> survivors = Lists.newArrayList();
-    private static List<Player> spectators = Lists.newArrayList();
+    public static List<Player> vampires = Lists.newArrayList(), survivors = Lists.newArrayList(), spectators = Lists.newArrayList(), allPlayers = Lists.newArrayList();
 
     public TeamManager(Player target){
         player = target;
@@ -36,6 +31,10 @@ public class TeamManager {
     public void setPlayer(Player target){
         player = target;
         teamManagerHashMap.put(target, this);
+    }
+
+    public static void removePlayer(Player player){
+        allPlayers.remove(player);
     }
 
     public static void initScoreboards(){

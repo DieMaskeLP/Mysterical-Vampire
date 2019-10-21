@@ -13,7 +13,10 @@ public class IngameState extends GameState {
         System.out.println("IngameState started!");
         Player vampire = TeamManager.getVampire();
         TeamManager.initScoreboards();
-        vampire.sendTitle("§eDu bist der §4§lVampir", "");
+        vampire.sendTitle("§eDu bist der §4Vampir", "");
+        for (Player t : TeamManager.getPlayersByTeam(Teams.SURVIVOR)){
+            t.sendTitle("§eDu bist ein §aSurvivor", "§eDu musst den Vampire §bfinden §eund §ctöten!");
+        }
     }
 
     @Override

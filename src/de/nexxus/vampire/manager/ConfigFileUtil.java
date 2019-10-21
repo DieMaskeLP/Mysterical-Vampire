@@ -31,7 +31,7 @@ public class ConfigFileUtil {
             } catch (IOException e) {
                 System.out.println("[Vampire] " + file.getName() + " konnte nicht erstellt werden!");
             }
-            config.addDefault("Messages.Prefix", "&8[&5Mystical&8-&4Vampire&8] ");
+            config.addDefault("Messages.Prefix", "&8[&5Mysterical&8-&4Vampire&8] ");
             config.options().copyDefaults(true);
             saveFiles();
         }
