@@ -1,5 +1,6 @@
 package de.nexxus.vampire.manager;
 
+import de.nexxus.vampire.gamestate.GameStateManager;
 import org.bukkit.entity.Player;
 
 public class Manager {

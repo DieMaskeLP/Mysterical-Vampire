@@ -1,6 +1,8 @@
 package de.nexxus.vampire.listener;
 
 import de.nexxus.vampire.countdown.LobbyCountdown;
+import de.nexxus.vampire.gamestate.GameState;
+import de.nexxus.vampire.gamestate.GameStateManager;
 import de.nexxus.vampire.main.Main;
 import de.nexxus.vampire.manager.*;
 import de.nexxus.vampire.utils.Data;
@@ -16,18 +18,18 @@ public class EventListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
-        Player player = e.getPlayer();
         Manager manager = Main.getManager();
-        if (manager.getGameStateManager().isCurrentGameState(GameStates.INGAME)){
+        Player player = e.getPlayer();
+        if (manager.getGameStateManager().isCurrentGameState(GameState.INGAME_STATE)){
             TeamManager teamManager = manager.getTeamManager(e.getPlayer());
             teamManager.setTeam(Teams.SPECTATOR);
             player.setGameMode(GameMode.SPECTATOR);
             player.sendMessage("§7Du bist nun ein Zuschauer");
         } else {
-            if (manager.getGameStateManager().isCurrentGameState(GameStates.END)){
+            if (manager.getGameStateManager().isCurrentGameState(GameState.ENDING_STATE)){
                 player.kickPlayer("§cDas Spiel endet gerade!");
             } else {
-                if (manager.getGameStateManager().isCurrentGameState(GameStates.LOBBY)){
+                if (manager.getGameStateManager().isCurrentGameState(GameState.LOBBY_STATE)){
                     /* Teleport the player to the lobby spawn
                     *  Edit: DONE
                     */

@@ -17,8 +17,8 @@ public class TeamManager {
     private static Team vampiresTeam = scoreboard.registerNewTeam(Teams.VAMPIRE.name()), survivorTeam = scoreboard.registerNewTeam(Teams.SURVIVOR.name());
     private static Objective vampiresObjective = scoreboard.registerNewObjective("vampireScore", "dummy"), survivorObjective = scoreboard.registerNewObjective("survivorScore", "dummy");
     private static HashMap<Player, TeamManager> teamManagerHashMap = new HashMap<>();
-    private static Player vampire;
-    private static List<Player> survivor = new ArrayList<>(), spectator = new ArrayList<>();
+    public static Player vampire;
+    public static List<Player> survivor = new ArrayList<>(), spectator = new ArrayList<>();
     private Player player;
     private Teams team;
 

@@ -1,3 +1,13 @@
 name: VAMPIRE
 main: de.nexxus.vampire.main.Main
 version: 1.0
+
+
+
+commands:
+  setup:
+    description: setup the game
+  state:
+    description: starts a gamestate
+  join:
+    description: Joins a team (survivor, vampire, spec, spectator)

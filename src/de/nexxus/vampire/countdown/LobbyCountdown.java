@@ -2,9 +2,9 @@ package de.nexxus.vampire.countdown;
 
 //Created by MrKompetnz on 10/21/19
 
+import de.nexxus.vampire.gamestate.GameState;
 import de.nexxus.vampire.main.Main;
-import de.nexxus.vampire.manager.GameStateManager;
-import de.nexxus.vampire.manager.GameStates;
+import de.nexxus.vampire.gamestate.GameStateManager;
 import de.nexxus.vampire.utils.Data;
 import org.bukkit.Bukkit;
 
@@ -39,7 +39,7 @@ public class LobbyCountdown extends Countdown {
                     Bukkit.broadcastMessage(Data.PREFIX + "§7Das Spiel startet in §aeiner §7Sekunde.");
                     break;
                 case 0:
-                    gameStateManager.setGameState(GameStates.INGAME);
+                    gameStateManager.setGameState(GameState.INGAME_STATE);
                     break;
             }
             seconds--;

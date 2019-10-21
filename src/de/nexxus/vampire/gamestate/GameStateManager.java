@@ -2,6 +2,8 @@ package de.nexxus.vampire.gamestate;
 
 //Created by MrKompetnz on 10/21/19
 
+import de.nexxus.vampire.utils.Data;
+
 public class GameStateManager {
 
     private GameState[] gameStates;
@@ -16,11 +18,19 @@ public class GameStateManager {
     }
 
     public void setGameState(int gameStateID) {
-        if(currentGameState != null)
-            currentGameState.stop();
+        if(currentGameState != null) currentGameState.stop();
         currentGameState = gameStates[gameStateID];
         currentGameState.start();
     }
+
+    public int getMaxPlayer(){
+        return Data.MAX_PLAYERS;
+    }
+
+    public int getMinPlayer(){
+        return Data.MIN_PLAYERS;
+    }
+
 
     public void stopCurrentGameState() {
         if(currentGameState != null) {
@@ -31,5 +41,9 @@ public class GameStateManager {
 
     public GameState getCurrentGameState() {
         return currentGameState;
+    }
+
+    public boolean isCurrentGameState(int gameState) {
+        return currentGameState == gameStates[gameState];
     }
 }
