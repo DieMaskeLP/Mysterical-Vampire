@@ -2,7 +2,6 @@ package de.nexxus.vampire.manager;
 
 import de.nexxus.vampire.main.Main;
 import org.bukkit.configuration.Configuration;
-import org.bukkit.scoreboard.Objective;
 
 public class ConfigManager {
 
