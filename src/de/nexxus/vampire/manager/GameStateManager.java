@@ -27,6 +27,7 @@ public class GameStateManager {
         return maxPlayer;
     }
 
+
     public void startGameState(GameStates gameState){
         switch (gameState){
             case LOBBY:
