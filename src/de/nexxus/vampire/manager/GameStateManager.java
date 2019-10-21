@@ -3,6 +3,10 @@ package de.nexxus.vampire.manager;
 
 public class GameStateManager {
 
+    public GameStateManager(){
+
+    }
+
 
     private static int maxPlayer = 9;
     private static GameStates currentGameState;
