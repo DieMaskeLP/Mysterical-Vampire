@@ -55,7 +55,9 @@ public class EventListener implements Listener {
                             if (countdown.isIdling()){
                                 countdown.stopIdle();
                             }
-                            countdown.start();
+                         if (!countdown.isRunning()){
+                             countdown.start();
+                         }
                         }
                     }
                 }

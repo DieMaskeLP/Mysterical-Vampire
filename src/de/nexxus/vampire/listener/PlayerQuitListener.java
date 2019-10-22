@@ -24,23 +24,9 @@ public class PlayerQuitListener implements Listener {
         LobbyCountdown countdown = new LobbyCountdown(Main.getManager().getGameStateManager());
         if(countdown.isRunning()) {
             countdown.stop();
-
-        if (TeamManager.getPlayerTeam(event.getPlayer()) == Teams.VAMPIRE){
-            Bukkit.broadcastMessage(Data.PREFIX + "§cDer §4Vampire §chat das Spiel verlassen! Das Spiel ist vorbei.");
-            Main.getManager().getGameStateManager().setGameState(GameState.ENDING_STATE);
-        }
-
-        if (TeamManager.getPlayerTeam(event.getPlayer()) == Teams.SURVIVOR){
-            TeamManager.survivors.remove(event.getPlayer());
-            if (TeamManager.getPlayersByTeam(Teams.SURVIVOR).size()==0){
-                Bukkit.broadcastMessage(Data.PREFIX + "§cEs gibt keine §aSurvivor §cmehr! Das Spiel ist vorbei.");
-                Main.getManager().getGameStateManager().setGameState(GameState.ENDING_STATE);
+            if (!countdown.isIdling()){
+                countdown.startIdle();
             }
-        }
-
-        }
-        if (!countdown.isIdling()){
-            countdown.startIdle();
         }
     }
 }

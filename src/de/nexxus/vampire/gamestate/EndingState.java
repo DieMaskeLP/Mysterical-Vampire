@@ -6,7 +6,7 @@ public class EndingState extends GameState {
 
     @Override
     public void start() {
-
+        System.out.println("EndingState started!");
     }
 
     @Override

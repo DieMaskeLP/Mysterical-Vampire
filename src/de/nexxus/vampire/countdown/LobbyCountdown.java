@@ -2,6 +2,7 @@ package de.nexxus.vampire.countdown;
 
 //Created by MrKompetnz on 10/21/19
 
+import com.avaje.ebeaninternal.server.persist.BindValues;
 import de.nexxus.vampire.gamestate.GameState;
 import de.nexxus.vampire.main.Main;
 import de.nexxus.vampire.gamestate.GameStateManager;
@@ -19,8 +20,8 @@ public class LobbyCountdown extends Countdown {
     private int seconds;
     private int idleID;
 
-    private boolean isRunning;
-    private boolean isIdling;
+    private boolean isRunning = false;
+    private boolean isIdling = false;
 
     public LobbyCountdown(GameStateManager gameStateManager) {
         this.gameStateManager = gameStateManager;
@@ -29,27 +30,29 @@ public class LobbyCountdown extends Countdown {
 
     @Override
     public void start() {
-        isRunning = true;
-        taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), () -> {
-            switch (seconds) {
-                case 20: case 10: case 5: case 4: case 3: case 2:
-                    Bukkit.broadcastMessage(Data.PREFIX + "§7Das Spiel startet in §a" + seconds + " §7Sekunden.");
-                    break;
-                case 1:
-                    Bukkit.broadcastMessage(Data.PREFIX + "§7Das Spiel startet in §aeiner §7Sekunde.");
-                    break;
-                case 0:
-                    gameStateManager.setGameState(GameState.INGAME_STATE);
-                    if (isRunning){
-                        stop();
-                    }
-                    if (isIdling){
-                        stopIdle();
-                    }
-                    break;
-            }
-            seconds--;
-        }, 0, 20);
+        if (!isRunning){
+            isRunning = true;
+            taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), () -> {
+                switch (seconds) {
+                    case 20: case 10: case 5: case 4: case 3: case 2:
+                        Bukkit.broadcastMessage(Data.PREFIX + "§7Das Spiel startet in §a" + seconds + " §7Sekunden.");
+                        break;
+                    case 1:
+                        Bukkit.broadcastMessage(Data.PREFIX + "§7Das Spiel startet in §aeiner §7Sekunde.");
+                        break;
+                    case 0:
+                        gameStateManager.setGameState(GameState.INGAME_STATE);
+                        if (isRunning){
+                            stop();
+                        }
+                        if (isIdling){
+                            stopIdle();
+                        }
+                        break;
+                }
+                seconds--;
+            }, 0, 20);
+        }
     }
 
     @Override
@@ -63,7 +66,7 @@ public class LobbyCountdown extends Countdown {
     public void startIdle() {
         if (!isIdling){
             isIdling = true;
-            idleID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), () -> Bukkit.broadcastMessage(Data.PREFIX + "§7Bis zum Spielstart fehlen noch §c" + missing_players + " §7Spieler!"), 0, 20 * IDLE_TIME);
+            idleID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), () -> Bukkit.broadcastMessage(Data.PREFIX + "§7Bis zum Spielstart fehlen noch §c" + String.valueOf(missing_players).replace("-", "") + " §7Spieler!"), 0, 20 * IDLE_TIME);
         }
 
     }
