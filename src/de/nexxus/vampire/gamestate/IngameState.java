@@ -2,6 +2,7 @@ package de.nexxus.vampire.gamestate;
 
 //Created by MrKompetnz on 10/21/19
 
+import de.nexxus.vampire.manager.Manager;
 import de.nexxus.vampire.manager.TeamManager;
 import de.nexxus.vampire.manager.Teams;
 import org.bukkit.entity.Player;

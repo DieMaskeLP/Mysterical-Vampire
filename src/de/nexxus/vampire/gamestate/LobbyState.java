@@ -2,6 +2,8 @@ package de.nexxus.vampire.gamestate;
 
 //Created by MrKompetnz on 10/21/19
 
+import de.nexxus.vampire.countdown.LobbyCountdown;
+import de.nexxus.vampire.manager.Manager;
 import de.nexxus.vampire.manager.TeamManager;
 import de.nexxus.vampire.manager.Teams;
 import de.nexxus.vampire.utils.Data;
@@ -33,5 +35,6 @@ public class LobbyState extends GameState {
             new TeamManager(t).setTeam(Teams.SURVIVOR);
         }
         TeamManager.allPlayers.add(vampire);
+
     }
 }

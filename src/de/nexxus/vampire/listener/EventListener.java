@@ -63,14 +63,5 @@ public class EventListener implements Listener {
                 }
             }
         }
-
-        LobbyCountdown countdown = new LobbyCountdown(manager.getGameStateManager());
-
-        if(Bukkit.getOnlinePlayers().size() >= Data.MIN_PLAYERS) {
-            if(!countdown.isRunning()) {
-                countdown.stopIdle();
-                countdown.start();
-            }
-        }
     }
 }

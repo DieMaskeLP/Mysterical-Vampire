@@ -42,12 +42,6 @@ public class LobbyCountdown extends Countdown {
                         break;
                     case 0:
                         gameStateManager.setGameState(GameState.INGAME_STATE);
-                        if (isRunning){
-                            stop();
-                        }
-                        if (isIdling){
-                            stopIdle();
-                        }
                         break;
                 }
                 seconds--;
