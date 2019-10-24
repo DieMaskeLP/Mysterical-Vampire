@@ -1,5 +1,6 @@
 package de.nexxus.vampire.main;
 
+import com.google.common.collect.Lists;
 import de.nexxus.vampire.commands.BuildCommand;
 import de.nexxus.vampire.commands.SetupCommand;
 import de.nexxus.vampire.gamestate.GameState;
@@ -9,6 +10,7 @@ import de.nexxus.vampire.listener.EventListener;
 import de.nexxus.vampire.listener.PlayerQuitListener;
 import de.nexxus.vampire.manager.ConfigFileUtil;
 import de.nexxus.vampire.manager.Manager;
+import de.nexxus.vampire.manager.RoleManager;
 import de.nexxus.vampire.testcommand.SetPlayerTeamCommand;
 import de.nexxus.vampire.testcommand.StartGameStateCommand;
 import de.nexxus.vampire.utils.LocationUtil;
@@ -18,6 +20,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 public class Main extends JavaPlugin {
@@ -34,9 +37,14 @@ public class Main extends JavaPlugin {
 
     private static Manager manager;
     private GameStateManager gameStateManager;
+    private RoleManager roleManager;
+
+    public static ArrayList<Player> players;
 
     @Override
     public void onEnable(){
+        roleManager = new RoleManager();
+        players = Lists.newArrayList();
         manager = new Manager();
         gameStateManager = new GameStateManager();
         plugin = this;
@@ -58,5 +66,9 @@ public class Main extends JavaPlugin {
 
     public GameStateManager getGameStateManager() {
         return gameStateManager;
+    }
+
+    public RoleManager getRoleManager() {
+        return roleManager;
     }
 }

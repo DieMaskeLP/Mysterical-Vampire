@@ -6,8 +6,10 @@ import com.avaje.ebeaninternal.server.persist.BindValues;
 import de.nexxus.vampire.gamestate.GameState;
 import de.nexxus.vampire.main.Main;
 import de.nexxus.vampire.gamestate.GameStateManager;
+import de.nexxus.vampire.manager.Roles;
 import de.nexxus.vampire.utils.Data;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 public class LobbyCountdown extends Countdown {
 
@@ -42,6 +44,11 @@ public class LobbyCountdown extends Countdown {
                         break;
                     case 0:
                         gameStateManager.setGameState(GameState.INGAME_STATE);
+                        Main.getPlugin().getRoleManager().calculateRoles(Main.players.size());
+                        for(Player current : Main.players) {
+                            Roles playerRole = Main.getPlugin().getRoleManager().getPlayerRole(current);
+                            current.sendMessage(Data.PREFIX + "§7Deine Rolle: §l" + playerRole.getChatColor() + playerRole.getName());
+                        }
                         break;
                 }
                 seconds--;
