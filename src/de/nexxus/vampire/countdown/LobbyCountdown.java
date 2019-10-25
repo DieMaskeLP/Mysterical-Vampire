@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 
 public class LobbyCountdown extends Countdown {
 
-    private static final int IDLE_TIME = 15, COUNTDOWN_TIME = 20;
+    private static final int IDLE_TIME = 15, COUNTDOWN_TIME = 60;
 
     private GameStateManager gameStateManager;
 
@@ -36,7 +36,7 @@ public class LobbyCountdown extends Countdown {
             isRunning = true;
             taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), () -> {
                 switch (seconds) {
-                    case 20: case 10: case 5: case 4: case 3: case 2:
+                    case 60: case 30: case 20: case 10: case 5: case 4: case 3: case 2:
                         Bukkit.broadcastMessage(Data.PREFIX + "§7Das Spiel startet in §a" + seconds + " §7Sekunden.");
                         break;
                     case 1:
@@ -85,5 +85,13 @@ public class LobbyCountdown extends Countdown {
 
     public boolean isRunning() {
         return isRunning;
+    }
+
+    public int getSeconds() {
+        return seconds;
+    }
+
+    public void setSeconds(int seconds) {
+        this.seconds = seconds;
     }
 }

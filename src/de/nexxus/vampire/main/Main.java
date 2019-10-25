@@ -3,6 +3,7 @@ package de.nexxus.vampire.main;
 import com.google.common.collect.Lists;
 import de.nexxus.vampire.commands.BuildCommand;
 import de.nexxus.vampire.commands.SetupCommand;
+import de.nexxus.vampire.commands.StartCommand;
 import de.nexxus.vampire.gamestate.GameState;
 import de.nexxus.vampire.gamestate.GameStateManager;
 import de.nexxus.vampire.listener.DeathListener;
@@ -48,16 +49,9 @@ public class Main extends JavaPlugin {
         manager = new Manager();
         gameStateManager = new GameStateManager();
         plugin = this;
-        registerListener(new EventListener());
-        registerListener(new PlayerQuitListener());
-        getCommand("setup").setExecutor(new SetupCommand());
-        getCommand("join").setExecutor(new SetPlayerTeamCommand());
-        getCommand("state").setExecutor(new StartGameStateCommand());
+        init();
         ConfigFileUtil.setupFiles();
         manager.getGameStateManager().setGameState(GameState.LOBBY_STATE);
-        getCommand("build").setExecutor(new BuildCommand());
-        registerListener(new DeathListener());
-
     }
 
     private void registerListener(Listener listener){
@@ -70,5 +64,17 @@ public class Main extends JavaPlugin {
 
     public RoleManager getRoleManager() {
         return roleManager;
+    }
+
+    private void init() {
+        registerListener(new EventListener());
+        registerListener(new PlayerQuitListener());
+        registerListener(new DeathListener());
+
+        getCommand("setup").setExecutor(new SetupCommand());
+        getCommand("join").setExecutor(new SetPlayerTeamCommand());
+        getCommand("state").setExecutor(new StartGameStateCommand());
+        getCommand("build").setExecutor(new BuildCommand());
+        getCommand("start").setExecutor(new StartCommand());
     }
 }
