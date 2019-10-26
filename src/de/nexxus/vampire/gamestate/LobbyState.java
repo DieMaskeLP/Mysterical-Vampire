@@ -4,14 +4,9 @@ package de.nexxus.vampire.gamestate;
 
 import de.nexxus.vampire.countdown.LobbyCountdown;
 import de.nexxus.vampire.main.Main;
+import de.nexxus.vampire.manager.Manager;
 
 public class LobbyState extends GameState {
-
-    private LobbyCountdown lobbyCountdown;
-
-    public LobbyState() {
-        lobbyCountdown = new LobbyCountdown(Main.getPlugin().getGameStateManager());
-    }
 
     @Override
     public void start() {
@@ -21,9 +16,6 @@ public class LobbyState extends GameState {
     @Override
     public void stop() {
 
-    }
 
-    public LobbyCountdown getLobbyCountdown() {
-        return lobbyCountdown;
     }
 }

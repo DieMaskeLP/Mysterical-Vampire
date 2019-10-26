@@ -3,8 +3,8 @@ package de.nexxus.vampire.listener;
 import de.nexxus.vampire.gamestate.GameState;
 import de.nexxus.vampire.main.Main;
 import de.nexxus.vampire.manager.Manager;
-import de.nexxus.vampire.manager.TeamManager;
-import de.nexxus.vampire.manager.Teams;
+import de.nexxus.vampire.manager.RoleManager;
+import de.nexxus.vampire.manager.Roles;
 import de.nexxus.vampire.utils.Data;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -21,21 +21,18 @@ public class DeathListener implements Listener {
             Manager manager = Manager.getManager();
             Player p = e.getEntity();
             Player killer = e.getEntity().getKiller();
-            if (TeamManager.getPlayerTeam(killer) == Teams.VAMPIRE){
-                Bukkit.broadcastMessage(Data.PREFIX + "§c Der §4Vampire §chat §a" + p.getName() + " §cgetötet!");
-                if (TeamManager.getPlayerTeam(e.getEntity()) == Teams.VAMPIRE){
-                    Bukkit.broadcastMessage(Data.PREFIX + "§cDer §4Vampire §cwurde von §a" + killer.getName() +" §cgetötet! §8Das Spiel ist vorbei.");
-                    Main.getManager().getGameStateManager().setGameState(GameState.ENDING_STATE);
-                }
-
-                if (TeamManager.getPlayerTeam(e.getEntity()) == Teams.SURVIVOR){
-                    TeamManager.survivors.remove(e.getEntity());
-                    if (TeamManager.getPlayersByTeam(Teams.SURVIVOR).size()==0){
-                        Bukkit.broadcastMessage(Data.PREFIX + "§cEs gibt keine §aSurvivor §cmehr! §8Das Spiel ist vorbei.");
-                        Main.getManager().getGameStateManager().setGameState(GameState.ENDING_STATE);
-                    }
+            RoleManager roleManager = manager.getRoleManager();
+            if (roleManager.getPlayerRole(killer) == Roles.VAMPIRE){
+                if (roleManager.getPlayerRole(p) == Roles.SURVIVOR){
+                    Bukkit.broadcastMessage(Data.PREFIX + "§cDer §4Vampire §chat §a" + p.getName() + " §cgetötet!");
                 }
             }
+            if (roleManager.getPlayerRole(killer) == Roles.SURVIVOR){
+                if (roleManager.getPlayerRole(p) == Roles.VAMPIRE){
+                    Bukkit.broadcastMessage(Data.PREFIX + "§cDer §aSurvivor §6" + killer.getName() +" §chat §c" + p.getName() + " §cgetötet!");
+                }
+            }
+
         }
 
     }

@@ -12,17 +12,13 @@ import de.nexxus.vampire.listener.PlayerQuitListener;
 import de.nexxus.vampire.manager.ConfigFileUtil;
 import de.nexxus.vampire.manager.Manager;
 import de.nexxus.vampire.manager.RoleManager;
-import de.nexxus.vampire.testcommand.SetPlayerTeamCommand;
 import de.nexxus.vampire.testcommand.StartGameStateCommand;
-import de.nexxus.vampire.utils.LocationUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 public class Main extends JavaPlugin {
 
@@ -72,7 +68,6 @@ public class Main extends JavaPlugin {
         registerListener(new DeathListener());
 
         getCommand("setup").setExecutor(new SetupCommand());
-        getCommand("join").setExecutor(new SetPlayerTeamCommand());
         getCommand("state").setExecutor(new StartGameStateCommand());
         getCommand("build").setExecutor(new BuildCommand());
         getCommand("start").setExecutor(new StartCommand());

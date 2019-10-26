@@ -13,6 +13,7 @@ public class Manager {
 
     private static Manager manager = Main.getManager();
 
+    private static RoleManager roleManager = new RoleManager();
     private static GameStateManager gameStateManager = new GameStateManager();
 
     public LobbyCountdown getLobbyCountdown() {
@@ -25,8 +26,8 @@ public class Manager {
 
     }
 
-    public TeamManager getTeamManager(Player target){
-        return new TeamManager(target);
+    public RoleManager getRoleManager(){
+        return roleManager;
     }
 
     public GameStateManager getGameStateManager(){

@@ -13,7 +13,7 @@ public class Data {
 
     public static final String PREFIX = ConfigFileUtil.getConfigString("Messages.Prefix"), NO_PERMISSION = PREFIX + "§cKeine Rechte!";
 
-    public static final int MIN_PLAYERS = 1, MAX_PLAYERS = 9;
+    public static final int MIN_PLAYERS = 2, MAX_PLAYERS = 9;
     public static List<Player> builder = new ArrayList<>();
 
 }

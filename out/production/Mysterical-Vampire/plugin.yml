@@ -14,3 +14,6 @@ commands:
 
   build:
     description: switchs the build mode
+
+  start:
+    description: Starts the game
