@@ -33,35 +33,21 @@ public class Main extends JavaPlugin {
     }
 
     private static Manager manager;
-    private GameStateManager gameStateManager;
-    private RoleManager roleManager;
-
-    public static ArrayList<Player> players;
 
     @Override
     public void onEnable(){
-        roleManager = new RoleManager();
-        players = Lists.newArrayList();
         manager = new Manager();
-        gameStateManager = new GameStateManager();
         plugin = this;
         init();
         ConfigFileUtil.setupFiles();
-        manager.getGameStateManager().setGameState(GameState.LOBBY_STATE);
+        if ((boolean) ConfigFileUtil.getConfigValue("Game.StartInstant")){
+            manager.getGameStateManager().setGameState(GameState.LOBBY_STATE);
+        }
     }
 
     private void registerListener(Listener listener){
         Bukkit.getPluginManager().registerEvents(listener, this);
     }
-
-    public GameStateManager getGameStateManager() {
-        return gameStateManager;
-    }
-
-    public RoleManager getRoleManager() {
-        return roleManager;
-    }
-
     private void init() {
         registerListener(new EventListener());
         registerListener(new PlayerQuitListener());

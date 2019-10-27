@@ -6,14 +6,17 @@ import com.avaje.ebeaninternal.server.persist.BindValues;
 import de.nexxus.vampire.gamestate.GameState;
 import de.nexxus.vampire.main.Main;
 import de.nexxus.vampire.gamestate.GameStateManager;
+import de.nexxus.vampire.manager.Manager;
 import de.nexxus.vampire.manager.Roles;
 import de.nexxus.vampire.utils.Data;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import javax.persistence.Lob;
+
 public class LobbyCountdown extends Countdown {
 
-    private static final int IDLE_TIME = 15, COUNTDOWN_TIME = 60;
+    private static final int IDLE_TIME = 15, COUNTDOWN_TIME = 20;
 
     private GameStateManager gameStateManager;
 
@@ -21,37 +24,40 @@ public class LobbyCountdown extends Countdown {
 
     private int seconds;
     private int idleID;
+    private static LobbyCountdown instance;
 
     private boolean isRunning = false;
     private boolean isIdling = false;
+    public static LobbyCountdown getInstance(){
+        return instance;
+    }
 
     public LobbyCountdown(GameStateManager gameStateManager) {
         this.gameStateManager = gameStateManager;
         seconds = COUNTDOWN_TIME;
+        instance = this;
     }
 
     @Override
     public void start() {
         if (!isRunning){
             isRunning = true;
-            taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), () -> {
-                switch (seconds) {
-                    case 60: case 30: case 20: case 10: case 5: case 4: case 3: case 2:
-                        Bukkit.broadcastMessage(Data.PREFIX + "§7Das Spiel startet in §a" + seconds + " §7Sekunden.");
-                        break;
-                    case 1:
-                        Bukkit.broadcastMessage(Data.PREFIX + "§7Das Spiel startet in §aeiner §7Sekunde.");
-                        break;
-                    case 0:
-                        gameStateManager.setGameState(GameState.INGAME_STATE);
-                        Main.getPlugin().getRoleManager().calculateRoles(Main.players.size());
-                        for(Player current : Main.players) {
-                            Roles playerRole = Main.getPlugin().getRoleManager().getPlayerRole(current);
-                            current.sendMessage(Data.PREFIX + "§7Deine Rolle: §l" + playerRole.getChatColor() + playerRole.getName());
-                        }
-                        break;
+            taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), new Runnable() {
+                @Override
+                public void run() {
+                    switch (seconds) {
+                        case 60: case 30: case 20: case 10: case 5: case 4: case 3: case 2:
+                            Bukkit.broadcastMessage(Data.PREFIX + "§7Das Spiel startet in §a" + seconds + " §7Sekunden.");
+                            break;
+                        case 1:
+                            Bukkit.broadcastMessage(Data.PREFIX + "§7Das Spiel startet in §aeiner §7Sekunde.");
+                            break;
+                        case 0:
+                            gameStateManager.setGameState(GameState.INGAME_STATE);
+                            break;
+                    }
+                    seconds--;
                 }
-                seconds--;
             }, 0, 20);
         }
     }
@@ -67,7 +73,12 @@ public class LobbyCountdown extends Countdown {
     public void startIdle() {
         if (!isIdling){
             isIdling = true;
-            idleID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), () -> Bukkit.broadcastMessage(Data.PREFIX + "§7Bis zum Spielstart fehlen noch §c" + String.valueOf(missing_players).replace("-", "") + " §7Spieler!"), 0, 20 * IDLE_TIME);
+            idleID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), new Runnable() {
+                        @Override
+                        public void run() {
+                            Bukkit.broadcastMessage(Data.PREFIX + "§7Bis zum Spielstart fehlen noch §c" + String.valueOf(missing_players).replace("-", "") + " §7Spieler!");
+                        }
+                    }, 0, 20 * IDLE_TIME);
         }
 
     }

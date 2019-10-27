@@ -17,7 +17,6 @@ public class EventListener implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
-        Main.players.add(e.getPlayer());
         Manager manager = Main.getManager();
         Player player = e.getPlayer();
         if (manager.getGameStateManager().isCurrentGameState(GameState.INGAME_STATE)){
@@ -34,7 +33,7 @@ public class EventListener implements Listener {
                     /* Teleport the player to the lobby spawn
                     *  Edit: DONE
                     */
-                    Main.players.add(e.getPlayer());
+                    Main.getManager().getRoleManager().players.add(e.getPlayer());
                     LocationUtil locationUtil = new LocationUtil("Lobby");
                     if(locationUtil.loadLocation() != null) {
                         player.teleport(locationUtil.loadLocation());

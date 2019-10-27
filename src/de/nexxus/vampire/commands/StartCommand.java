@@ -23,8 +23,8 @@ public class StartCommand implements CommandExecutor {
             Player player = (Player) sender;
             if(player.hasPermission("vampire.start")) {
                 if(args.length == 0) {
-                    if(Main.getPlugin().getGameStateManager().isCurrentGameState(GameState.LOBBY_STATE)) {
-                        LobbyCountdown getLobbyCountdown = Manager.getManager().getLobbyCountdown();
+                    if(Main.getManager().getGameStateManager().isCurrentGameState(GameState.LOBBY_STATE)) {
+                        LobbyCountdown getLobbyCountdown = Main.getManager().getLobbyCountdown();
                         if(getLobbyCountdown.isRunning() && getLobbyCountdown.getSeconds() > START_SECONDS) {
                             getLobbyCountdown.setSeconds(START_SECONDS);
                             player.sendMessage(Data.PREFIX + "§aDer Spielstart wurde beschleunigt!");

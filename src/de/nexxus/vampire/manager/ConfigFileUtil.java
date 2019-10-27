@@ -32,10 +32,13 @@ public class ConfigFileUtil {
                 System.out.println("[Vampire] " + file.getName() + " konnte nicht erstellt werden!");
             }
             config.addDefault("Messages.Prefix", "&8[&5Mysterical&8-&4Vampire&8] ");
+            config.addDefault("Game.StartInstant", true);
             config.options().copyDefaults(true);
             saveFiles();
         }
     }
+
+    public static Object getConfigValue(String path) { return config.get(path); }
 
     public static String getConfigString(String path) {
         return config.getString(path).replace('&', '§');

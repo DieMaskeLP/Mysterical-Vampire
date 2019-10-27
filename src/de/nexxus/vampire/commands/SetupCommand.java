@@ -18,19 +18,32 @@ public class SetupCommand implements CommandExecutor {
         if(sender instanceof Player) {
             Player player = (Player) sender;
             if(player.hasPermission("vampire.setup")) {
-                if(args.length == 0) {
-                    player.sendMessage(Data.PREFIX + "§cBitte nutze §6/setup <Lobby>");
-                } else {
-                    if(args[0].equalsIgnoreCase("lobby")) {
-                        if(args.length == 1) {
-                            new LocationUtil(player.getLocation(), "Lobby").saveLocation();
-                            player.sendMessage(Data.PREFIX + "§aDie Lobby wurde (neu) gesetzt!");
-                        } else
-                            player.sendMessage(Data.PREFIX + "§cBitte nutze §6/setup lobby");
+                if(args.length != 0) {
+                    LocationUtil util = new LocationUtil();
+                    switch (args[0]){
+                        case "lobby":
+                            util.setLocation(player.getLocation()).setPath("Lobby");
+                            util.saveLocation();
+                            player.sendMessage(Data.PREFIX + "§aDie Lobby wurde erfolgreich gesetzt!");
+                            break;
+                        case "vampire":
+                            util.setLocation(player.getLocation()).setPath("Vampire");
+                            util.saveLocation();
+                            player.sendMessage(Data.PREFIX + "§aDer Vampire-Spawn wurde erfolgreich gesetzt!");
+                            break;
+                        case "survivor":
+                            util.setLocation(player.getLocation()).setPath("Survivor");
+                            util.saveLocation();
+                            player.sendMessage(Data.PREFIX + "§aDer Survivor-Spawn wurde erfolgreich gesetzt!");
+                            break;
+                        case "end":
+                            util.setLocation(player.getLocation()).setPath("End");
+                            util.saveLocation();
+                            player.sendMessage(Data.PREFIX + "§aDer End-Spawn wurde erfolgreich gesetzt!");
+                            break;
                     }
-                }
-            } else
-                player.sendMessage(Data.NO_PERMISSION);
+                } else player.sendMessage(Data.PREFIX + "§cBitte nutze §6/setup <Lobby>");
+            } else player.sendMessage(Data.NO_PERMISSION);
         }
         return false;
     }
