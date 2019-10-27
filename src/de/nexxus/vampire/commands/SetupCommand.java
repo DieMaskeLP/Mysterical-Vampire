@@ -41,8 +41,12 @@ public class SetupCommand implements CommandExecutor {
                             util.saveLocation();
                             player.sendMessage(Data.PREFIX + "§aDer End-Spawn wurde erfolgreich gesetzt!");
                             break;
+                        default:
+                            player.sendMessage(Data.PREFIX + "§cBitte nutze §6/setup <Lobby>");
+                            break;
+
                     }
-                } else player.sendMessage(Data.PREFIX + "§cBitte nutze §6/setup <Lobby>");
+                } else player.sendMessage(Data.PREFIX + "§cBitte nutze §6/setup <Lobby / Vampire / Survivor / End>");
             } else player.sendMessage(Data.NO_PERMISSION);
         }
         return false;

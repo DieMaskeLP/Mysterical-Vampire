@@ -33,6 +33,7 @@ public class IngameState extends GameState {
                 PotionEffect potionEffect2 = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 99999999, 1, true, false);
                 potionEffect2.apply(t);
                 potionEffect.apply(t);
+                t.sendTitle("§6Rolle: §4Vampire", "§cFinde die Survivor und saug deren §4Blut §caus!");
                 util.setPath("Vampire");
                 if (util.loadLocation() != null){
                     t.teleport(util.loadLocation());
@@ -45,6 +46,7 @@ public class IngameState extends GameState {
                     PotionEffect potionEffect2 = new PotionEffect(PotionEffectType.SLOW, 99999999, 1, true, false);
                     potionEffect2.apply(t);
                     potionEffect.apply(t);
+                    t.sendTitle("§6Rolle: §aSurvivor", "§cFange den §4Vampire §cund nehme sein Leben!");
                     util.setPath("Survivor");
                     if (util.loadLocation() != null){
                         t.teleport(util.loadLocation());
