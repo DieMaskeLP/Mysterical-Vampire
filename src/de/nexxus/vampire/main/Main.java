@@ -40,9 +40,12 @@ public class Main extends JavaPlugin {
         plugin = this;
         init();
         ConfigFileUtil.setupFiles();
-        if ((boolean) ConfigFileUtil.getConfigValue("Game.StartInstant")){
-            manager.getGameStateManager().setGameState(GameState.LOBBY_STATE);
+        if (ConfigFileUtil.existConfig("Game.StartInstant")){
+            if ((boolean) ConfigFileUtil.getConfigValue("Game.StartInstant")){
+                manager.getGameStateManager().setGameState(GameState.LOBBY_STATE);
+            }
         }
+
     }
 
     private void registerListener(Listener listener){

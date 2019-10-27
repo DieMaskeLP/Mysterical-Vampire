@@ -22,8 +22,7 @@ public class ConfigFileUtil {
     }
 
     public static void setupFiles() {
-        if(!folder.exists())
-            folder.mkdir();
+        if(!folder.exists()) folder.mkdir();
 
         if(!file.exists()) {
             try {
@@ -38,7 +37,13 @@ public class ConfigFileUtil {
         }
     }
 
-    public static Object getConfigValue(String path) { return config.get(path); }
+    public static boolean existConfig(String path){
+        return config.contains(path);
+    }
+
+    public static Object getConfigValue(String path) {
+        return config.get(path);
+    }
 
     public static String getConfigString(String path) {
         return config.getString(path).replace('&', '§');
