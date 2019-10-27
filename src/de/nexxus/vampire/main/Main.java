@@ -1,24 +1,16 @@
 package de.nexxus.vampire.main;
 
-import com.google.common.collect.Lists;
 import de.nexxus.vampire.commands.BuildCommand;
 import de.nexxus.vampire.commands.SetupCommand;
 import de.nexxus.vampire.commands.StartCommand;
 import de.nexxus.vampire.gamestate.GameState;
-import de.nexxus.vampire.gamestate.GameStateManager;
-import de.nexxus.vampire.listener.DeathListener;
-import de.nexxus.vampire.listener.EventListener;
-import de.nexxus.vampire.listener.PlayerQuitListener;
+import de.nexxus.vampire.listener.*;
 import de.nexxus.vampire.manager.ConfigFileUtil;
 import de.nexxus.vampire.manager.Manager;
-import de.nexxus.vampire.manager.RoleManager;
 import de.nexxus.vampire.testcommand.StartGameStateCommand;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.util.ArrayList;
 
 public class Main extends JavaPlugin {
 
@@ -52,9 +44,12 @@ public class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(listener, this);
     }
     private void init() {
-        registerListener(new EventListener());
+        registerListener(new JoinListener());
         registerListener(new PlayerQuitListener());
         registerListener(new DeathListener());
+        registerListener(new InventoryListener());
+        registerListener(new BuildListener());
+
 
         getCommand("setup").setExecutor(new SetupCommand());
         getCommand("state").setExecutor(new StartGameStateCommand());

@@ -16,6 +16,7 @@ public class DeathListener implements Listener {
 
     @EventHandler
     public void onKill(PlayerDeathEvent e){
+        e.setDeathMessage("");
         if (Main.getManager().getGameStateManager().isCurrentGameState(GameState.INGAME_STATE)){
             Manager manager = Main.getManager();
             Player p = e.getEntity();
