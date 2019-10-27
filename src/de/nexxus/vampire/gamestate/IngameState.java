@@ -39,10 +39,11 @@ public class IngameState extends GameState {
                 t.sendTitle("§6Rolle: §4Vampire", "§cFinde die Survivor und saug deren §4Blut §caus!");
                 ItemBuilder builder = new ItemBuilder("§4§lBlut Axt", Material.DIAMOND_AXE,1);
                 builder.setEnchantment(Enchantment.DAMAGE_ALL, 1, true);
-                builder.setLore("§cSchlitze hiermit die §aSurvivor auf!", "und bekomme mehr Fähigkeiten");
+                builder.setLore("§cKöpfe hiermit die §aSurvivor!", "§cUnd bekomme mehr Fähigkeiten");
                 t.setItemInHand(builder.build());
                 util.setPath("Vampire");
                 t.setMaxHealth(t.getMaxHealth()*2);
+                t.setHealth(t.getMaxHealth());
                 if (util.loadLocation() != null){
                     t.teleport(util.loadLocation());
                 } else Bukkit.getConsoleSender().sendMessage("§4Der Vampire-Spawn wurde noch nicht gesetzt!");
