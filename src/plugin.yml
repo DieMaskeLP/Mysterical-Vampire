@@ -17,3 +17,5 @@ commands:
 
   start:
     description: Starts the game
+  savemap:
+    description: saves the map

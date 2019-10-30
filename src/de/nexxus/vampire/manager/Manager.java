@@ -1,5 +1,6 @@
 package de.nexxus.vampire.manager;
 
+import de.nexxus.vampire.countdown.IngameCountdown;
 import de.nexxus.vampire.countdown.LobbyCountdown;
 import de.nexxus.vampire.gamestate.GameStateManager;
 import de.nexxus.vampire.main.Main;
@@ -8,7 +9,7 @@ public class Manager {
 
     private static RoleManager roleManager;
     private static GameStateManager gameStateManager;
-
+    private static IngameCountdown ingameCountdown;
     private static LobbyCountdown lobbyCountdown;
 
     public LobbyCountdown getLobbyCountdown() {
@@ -20,6 +21,11 @@ public class Manager {
         new LobbyCountdown(gameStateManager);
         lobbyCountdown = LobbyCountdown.getInstance();
         roleManager = new RoleManager();
+        ingameCountdown = new IngameCountdown();
+    }
+
+    public IngameCountdown getIngameCountdown(){
+        return ingameCountdown;
     }
 
     public RoleManager getRoleManager(){

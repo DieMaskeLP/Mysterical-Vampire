@@ -2,10 +2,9 @@ package de.nexxus.vampire.gamestate;
 
 //Created by MrKompetnz on 10/21/19
 
+import de.nexxus.vampire.countdown.IngameCountdown;
 import de.nexxus.vampire.countdown.LobbyCountdown;
 import de.nexxus.vampire.main.Main;
-import de.nexxus.vampire.manager.Manager;
-import de.nexxus.vampire.manager.RoleManager;
 import de.nexxus.vampire.manager.Roles;
 import de.nexxus.vampire.utils.ItemBuilder;
 import de.nexxus.vampire.utils.LocationUtil;
@@ -16,9 +15,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-import java.time.Duration;
-import java.util.Random;
-
 public class IngameState extends GameState {
 
     @Override
@@ -27,6 +23,7 @@ public class IngameState extends GameState {
         if (countdown.isRunning()) countdown.stop();
         System.out.println("IngameState started!");
         Main.getManager().getRoleManager().calculateRoles();
+        Main.getManager().getIngameCountdown().start();
         LocationUtil util = new LocationUtil();
         for (Player t : Main.getManager().getRoleManager().players){
             if (Main.getManager().getRoleManager().getPlayerRole(t) == Roles.VAMPIRE){
@@ -74,5 +71,9 @@ public class IngameState extends GameState {
     @Override
     public void stop() {
         System.out.println("IngameState stopped!");
+        IngameCountdown ingameCountdown = Main.getManager().getIngameCountdown();
+        if (ingameCountdown.isRunning()){
+            ingameCountdown.stop();
+        }
     }
 }
