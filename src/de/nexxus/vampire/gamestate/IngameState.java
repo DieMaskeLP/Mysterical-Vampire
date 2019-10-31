@@ -77,4 +77,9 @@ public class IngameState extends GameState {
         System.out.println("IngameState stopped!");
         Main.getManager().getIngameCountdown().stop();
     }
+
+    @Override
+    public void setSeconds(int seconds) {
+        Main.getManager().getIngameCountdown().setSeconds(seconds);
+    }
 }

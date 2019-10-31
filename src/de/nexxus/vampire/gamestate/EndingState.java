@@ -55,5 +55,11 @@ public class EndingState extends GameState {
         Bukkit.getServer().reload();
     }
 
+    @Override
+    public void setSeconds(int seconds) {
+        Main.getManager().getEndingCountdown().setSeconds(seconds);
+    }
+
+
 
 }

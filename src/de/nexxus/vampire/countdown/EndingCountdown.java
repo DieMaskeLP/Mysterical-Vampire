@@ -39,6 +39,10 @@ public class EndingCountdown extends Countdown {
         }
     }
 
+    public void setSeconds(int seconds){
+      this.seconds = seconds;
+    }
+
     @Override
     public boolean isRunning() {
         return isRunning;

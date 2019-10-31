@@ -1,8 +1,6 @@
 package de.nexxus.vampire.main;
 
-import de.nexxus.vampire.commands.BuildCommand;
-import de.nexxus.vampire.commands.SetupCommand;
-import de.nexxus.vampire.commands.StartCommand;
+import de.nexxus.vampire.commands.*;
 import de.nexxus.vampire.gamestate.GameState;
 import de.nexxus.vampire.listener.*;
 import de.nexxus.vampire.manager.ConfigFileUtil;
@@ -57,5 +55,7 @@ public class Main extends JavaPlugin {
         getCommand("state").setExecutor(new StartGameStateCommand());
         getCommand("build").setExecutor(new BuildCommand());
         getCommand("start").setExecutor(new StartCommand());
+        getCommand("vstop").setExecutor(new StopCommand());
+        getCommand("time").setExecutor(new SetTimeCommand());
     }
 }

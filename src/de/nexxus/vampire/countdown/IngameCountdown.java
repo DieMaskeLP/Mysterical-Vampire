@@ -79,6 +79,7 @@ public class IngameCountdown extends Countdown {
         return isRunning;
     }
 
+
     public void setSeconds(int seconds){
         this.seconds = seconds;
     }

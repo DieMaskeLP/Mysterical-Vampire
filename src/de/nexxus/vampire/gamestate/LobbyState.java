@@ -18,6 +18,11 @@ public class LobbyState extends GameState {
 
 
     }
+
+    @Override
+    public void setSeconds(int seconds) {
+        Main.getManager().getLobbyCountdown().setSeconds(seconds);
+    }
 }
 
 

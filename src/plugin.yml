@@ -14,8 +14,9 @@ commands:
 
   build:
     description: switchs the build mode
-
   start:
     description: Starts the game
-  savemap:
-    description: saves the map
+  vstop:
+    description: Stops the game;
+  time:
+    description: Sets the time
