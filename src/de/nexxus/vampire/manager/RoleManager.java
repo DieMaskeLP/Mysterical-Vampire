@@ -13,7 +13,7 @@ import java.util.Random;
 
 public class RoleManager {
 
-    private HashMap<String, Roles> playerRoles;
+    private HashMap<Player, Roles> playerRoles;
     public ArrayList<Player> players;
 
     private int vampires, survivors;
@@ -24,22 +24,22 @@ public class RoleManager {
     }
 
     public void setPlayerRole(Player player, Roles role){
-        playerRoles.put(player.getName(), role);
+        playerRoles.put(player, role);
     }
 
     public void calculateRoles() {
         Random random = new Random();
         Player vampire = players.get(random.nextInt(players.size()));
         vampire.setAllowFlight(true);
-        playerRoles.put(vampire.getName(), Roles.VAMPIRE);
+        playerRoles.put(vampire, Roles.VAMPIRE);
         for (Player t : Bukkit.getOnlinePlayers()){
-            if (!playerRoles.containsKey(t.getName())){
-                playerRoles.put(t.getName(), Roles.SURVIVOR);
+            if (!playerRoles.containsKey(t)){
+                playerRoles.put(t, Roles.SURVIVOR);
             }
         }
     }
 
     public Roles getPlayerRole(Player player) {
-        return playerRoles.get(player.getName());
+        return playerRoles.get(player);
     }
 }

@@ -13,7 +13,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
 public class JoinListener implements Listener {
 
@@ -33,6 +32,8 @@ public class JoinListener implements Listener {
         if (manager.getGameStateManager().isCurrentGameState(GameState.INGAME_STATE)){
             player.setGameMode(GameMode.SPECTATOR);
             player.sendMessage(Data.PREFIX + "§7Du bist nun ein Zuschauer");
+            manager.getRoleManager().setPlayerRole(player, Roles.SPECTATOR);
+            player.setPlayerListName("");
         } else {
             if (manager.getGameStateManager().isCurrentGameState(GameState.ENDING_STATE)){
                 player.kickPlayer("§cDas Spiel endet gerade!");

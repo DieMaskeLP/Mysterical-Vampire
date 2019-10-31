@@ -7,6 +7,7 @@ import de.nexxus.vampire.main.Main;
 import de.nexxus.vampire.manager.Manager;
 import de.nexxus.vampire.utils.LocationUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -21,8 +22,10 @@ public class EndingState extends GameState {
 
 
         for (Player player : Bukkit.getServer().getOnlinePlayers()){
-            player.setMaxHealth(10);
+            player.setMaxHealth(20);
             player.setHealth(player.getMaxHealth());
+            player.setGameMode(GameMode.SURVIVAL);
+            player.setPlayerListName(player.getName());
             player.setAllowFlight(false);
             if (Manager.disguiseAPI.isDisguised(player)) Manager.disguiseAPI.undisguise(player);
             for (PotionEffect potionEffect : player.getActivePotionEffects()){
