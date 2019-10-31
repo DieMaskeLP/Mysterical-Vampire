@@ -24,6 +24,7 @@ public class JoinListener implements Listener {
         player.setMaxHealth(20);
         player.setHealth(player.getMaxHealth());
         player.setAllowFlight(false);
+        player.getInventory().clear();
         if (Manager.disguiseAPI.isDisguised(player)) Manager.disguiseAPI.undisguise(player);
         for (PotionEffect potionEffect : player.getActivePotionEffects()){
             player.removePotionEffect(potionEffect.getType());

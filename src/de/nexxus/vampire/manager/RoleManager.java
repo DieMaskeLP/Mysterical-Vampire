@@ -5,6 +5,7 @@ import de.nexxus.vampire.main.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import javax.management.relation.Role;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -20,6 +21,10 @@ public class RoleManager {
     public RoleManager() {
         playerRoles = new HashMap<>();
         players = new ArrayList<>();
+    }
+
+    public void setPlayerRole(Player player, Roles role){
+        playerRoles.put(player.getName(), role);
     }
 
     public void calculateRoles() {

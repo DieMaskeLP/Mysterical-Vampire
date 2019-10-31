@@ -14,15 +14,19 @@ public class BuildCommand implements CommandExecutor {
                 if (p.hasPermission("game.build.other")){
                     Player t = Bukkit.getPlayer(strings[0]);
                     if (t != null){
-                        Data.builder.add(t);
-                        p.sendMessage(Data.PREFIX + "§eBuildmode ist nun für §e " + t.getName() + (Data.builder.contains(p) ? "§aacktiviert!" : "§cdeaktiviert!"));
+                        if (Data.builder.contains(t)){
+                            Data.builder.remove(t);
+                        } else Data.builder.add(t);
+                        p.sendMessage(Data.PREFIX + "§eBuildmode ist nun für §e " + t.getName() + (Data.builder.contains(p) ? "§aaktiviert!" : "§cdeaktiviert!"));
                         p.sendMessage(Data.PREFIX + "§eBuildmode ist nun " + (Data.builder.contains(p) ? "§aacktiviert!" : "§cdeaktiviert!"));
                     } else p.sendMessage(Data.PREFIX + "§cDer Spieler ist nicht online!");
                 } else p.sendMessage(Data.NO_PERMISSION);
             } else {
                 if (p.hasPermission("game.build.own")){
-                    Data.builder.add(p);
-                    p.sendMessage(Data.PREFIX + "§eBuildmode ist nun " + (Data.builder.contains(p) ? "§aacktiviert!" : "§cdeaktiviert!"));
+                    if (Data.builder.contains(p)){
+                        Data.builder.remove(p);
+                    } else Data.builder.add(p);
+                    p.sendMessage(Data.PREFIX + "§eBuildmode ist nun " + (Data.builder.contains(p) ? "§aaktiviert!" : "§cdeaktiviert!"));
                 } else p.sendMessage(Data.NO_PERMISSION);
             }
         }

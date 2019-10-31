@@ -33,6 +33,7 @@ public class DeathListener implements Listener {
             RoleManager roleManager = manager.getRoleManager();
             if (roleManager.getPlayerRole(killer) == Roles.VAMPIRE){
                 if (roleManager.getPlayerRole(p) == Roles.SURVIVOR){
+                    roleManager.setPlayerRole(p, Roles.SPECTATOR);
                     Bukkit.broadcastMessage(Data.PREFIX + "§cDer §4Vampire §chat §a" + p.getName() + " §cgetötet!");
                     boolean allSurvivorsDead = true;
                     for (Player t : Bukkit.getServer().getOnlinePlayers()){
