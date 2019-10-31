@@ -18,6 +18,12 @@ import org.bukkit.potion.PotionEffectType;
 
 public class IngameState extends GameState {
 
+    private int id, seconds = 20, ticks = 0;
+
+    public void end(){
+        Bukkit.getScheduler().cancelTask(id);
+    }
+
     @Override
     public void start() {
         LobbyCountdown countdown = Main.getManager().getLobbyCountdown();
@@ -46,6 +52,21 @@ public class IngameState extends GameState {
                 if (util.loadLocation() != null){
                     t.teleport(util.loadLocation());
                 } else Bukkit.getConsoleSender().sendMessage("§4Der Vampire-Spawn wurde noch nicht gesetzt!");
+                id = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), new Runnable() {
+                    @Override
+                    public void run() {
+                        if (seconds==0){
+                            end();
+                        } else {
+                            ticks++;
+                            t.teleport(util.setPath("Vampire").loadLocation());
+                            if (ticks == 20){
+                                seconds--;
+                                ticks = 0;
+                            }
+                        }
+                    }
+                }, 0, 1);
             } else {
                 if (Main.getManager().getRoleManager().getPlayerRole(t) == Roles.SURVIVOR){
                     t.setDisplayName("§a" + t.getDisplayName());

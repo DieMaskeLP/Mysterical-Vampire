@@ -11,7 +11,6 @@ commands:
     description: starts a gamestate
   join:
     description: Joins a team (survivor, vampire, spec, spectator)
-
   build:
     description: switchs the build mode
   start:
