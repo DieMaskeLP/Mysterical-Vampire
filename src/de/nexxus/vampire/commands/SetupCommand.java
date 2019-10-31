@@ -41,6 +41,12 @@ public class SetupCommand implements CommandExecutor {
                             util.saveLocation();
                             player.sendMessage(Data.PREFIX + "§aDer End-Spawn wurde erfolgreich gesetzt!");
                             break;
+                        case "death":
+                            util.setLocation(player.getLocation()).setPath("Death");
+                            util.saveLocation();
+                            player.sendMessage(Data.PREFIX + "§aDer Death-Spawn wurde erfolgreich gesetzt!");
+                            break;
+
                         default:
                             player.sendMessage(Data.PREFIX + "§cBitte nutze §6/setup <Lobby>");
                             break;

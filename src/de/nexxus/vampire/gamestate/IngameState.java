@@ -60,6 +60,8 @@ public class IngameState extends GameState {
                     t.getInventory().setChestplate(builder.build());
                     builder.setItemBuilder("Schuhe", Material.LEATHER_BOOTS, 1);
                     t.getInventory().setBoots(builder.build());
+                    builder.setItemBuilder("Holz-Schwert", Material.WOOD_SWORD, 1);
+                    t.setItemInHand(builder.build());
                     t.sendTitle("§6Rolle: §aSurvivor", "§cFange den §4Vampire §cund nehme sein Leben!");
                     util.setPath("Survivor");
                     if (util.loadLocation() != null){

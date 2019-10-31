@@ -6,11 +6,15 @@ import de.nexxus.vampire.manager.Manager;
 import de.nexxus.vampire.manager.RoleManager;
 import de.nexxus.vampire.manager.Roles;
 import de.nexxus.vampire.utils.Data;
+import de.nexxus.vampire.utils.LocationUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+
+import javax.swing.*;
 
 public class DeathListener implements Listener {
 
@@ -21,6 +25,11 @@ public class DeathListener implements Listener {
             Manager manager = Main.getManager();
             Player p = e.getEntity();
             Player killer = e.getEntity().getKiller();
+            LocationUtil util = new LocationUtil("Death");
+            if (util.loadLocation() != null){
+                p.teleport(util.loadLocation());
+            } else Bukkit.getConsoleSender().sendMessage("§cDer Death-Spawn wurde noch nicht gesetzt!");
+            p.setGameMode(GameMode.SPECTATOR);
             RoleManager roleManager = manager.getRoleManager();
             if (roleManager.getPlayerRole(killer) == Roles.VAMPIRE){
                 if (roleManager.getPlayerRole(p) == Roles.SURVIVOR){
