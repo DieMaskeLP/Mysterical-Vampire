@@ -15,8 +15,8 @@ public class LobbyState extends GameState {
 
     @Override
     public void stop() {
-
-
+        Main.getManager().getLobbyCountdown().stop();
+        Main.getManager().getLobbyCountdown().stopIdle();
     }
 
     @Override

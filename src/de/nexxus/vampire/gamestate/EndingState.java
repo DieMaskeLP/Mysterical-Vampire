@@ -48,11 +48,7 @@ public class EndingState extends GameState {
 
     @Override
     public void stop() {
-        for (Player t : Bukkit.getServer().getOnlinePlayers()){
-            t.kickPlayer("§cServer is shutting down!");
-        }
         Main.getManager().getEndingCountdown().stop();
-        Bukkit.getServer().reload();
     }
 
     @Override

@@ -56,7 +56,9 @@ public class DeathListener implements Listener {
                         Bukkit.broadcastMessage(Data.PREFIX + "§aDie Survivor haben gewonnen!");
                         Main.getManager().getGameStateManager().setGameState(GameState.ENDING_STATE);
                     } else {
-                        p.teleport(util.setPath("Vampire").loadLocation());
+                        util.setPath("Vampire");
+                        p.teleport(util.loadLocation());
+                        p.setGameMode(GameMode.SURVIVAL);
                     }
                 }
             }

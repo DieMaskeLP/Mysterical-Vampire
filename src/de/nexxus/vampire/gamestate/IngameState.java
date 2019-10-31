@@ -28,11 +28,14 @@ public class IngameState extends GameState {
     public void start() {
         LobbyCountdown countdown = Main.getManager().getLobbyCountdown();
         if (countdown.isRunning()) countdown.stop();
+
         System.out.println("IngameState started!");
         Main.getManager().getRoleManager().calculateRoles();
         Main.getManager().getIngameCountdown().start();
         LocationUtil util = new LocationUtil();
         for (Player t : Main.getManager().getRoleManager().players){
+            t.setHealth(t.getMaxHealth());
+            t.setFoodLevel(2000);
             t.setCanPickupItems(false);
             if (Main.getManager().getRoleManager().getPlayerRole(t) == Roles.VAMPIRE){
                 t.setDisplayName("§4" + t.getDisplayName());

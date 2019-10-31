@@ -9,11 +9,13 @@ import de.nexxus.vampire.utils.Data;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class IngameCountdown extends Countdown {
 
@@ -25,28 +27,29 @@ public class IngameCountdown extends Countdown {
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         Objective objective = scoreboard.registerNewObjective("sbVampire", "Vampire");
         objective.setDisplayName(Data.PREFIX);
-        Score survivors = objective.getScore("§aSurvivors: ");
+
         int survivor = 0;
         for (Player t : Bukkit.getServer().getOnlinePlayers()){
             if (Main.getManager().getRoleManager().getPlayerRole(t) == Roles.SURVIVOR){
                 survivor++;
             }
         }
-        survivors.setScore(survivor);
+        Score survivors = objective.getScore("§aSurvivors: " + survivor);
+        survivors.setScore(99);
         Score vampire;
         for (Player t : Bukkit.getServer().getOnlinePlayers()){
             if (Main.getManager().getRoleManager().getPlayerRole(t) == Roles.VAMPIRE){
                 vampire = objective.getScore("§4Vampire: §c" + t.getDisplayName());
-                vampire.setScore(0);
+                vampire.setScore(98);
             }
         }
-        int sec = seconds / 60;
-        int minutes = sec/60;
-        minutes %= 60;
-        sec &= 60;
+        int sec = seconds%60;
+        int minutes = (int) TimeUnit.SECONDS.toMinutes(seconds);
         String time = minutes + ":" + sec;
 
         Score timeScore = objective.getScore("§eZeit: §6" + time);
+        timeScore.setScore(100);
+        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         for (Player t : Bukkit.getServer().getOnlinePlayers()){
             t.setScoreboard(scoreboard);
         }
