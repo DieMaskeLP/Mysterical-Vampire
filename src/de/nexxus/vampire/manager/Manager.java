@@ -4,6 +4,9 @@ import de.nexxus.vampire.countdown.IngameCountdown;
 import de.nexxus.vampire.countdown.LobbyCountdown;
 import de.nexxus.vampire.gamestate.GameStateManager;
 import de.nexxus.vampire.main.Main;
+import de.robingrether.idisguise.api.DisguiseAPI;
+import de.robingrether.idisguise.disguise.Disguise;
+import de.robingrether.idisguise.management.DisguiseManager;
 
 public class Manager {
 
