@@ -25,6 +25,7 @@ public class RoleManager {
     public void calculateRoles() {
         Random random = new Random();
         Player vampire = players.get(random.nextInt(players.size()));
+        vampire.setAllowFlight(true);
         playerRoles.put(vampire.getName(), Roles.VAMPIRE);
         for (Player t : Bukkit.getOnlinePlayers()){
             if (!playerRoles.containsKey(t.getName())){

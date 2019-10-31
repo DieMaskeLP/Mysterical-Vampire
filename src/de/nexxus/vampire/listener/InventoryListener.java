@@ -10,6 +10,6 @@ public class InventoryListener implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e){
-        e.setCancelled(!Data.builder.contains((Player) e.getWhoClicked()));
+        e.setCancelled(!Data.builder.contains(e.getWhoClicked()));
     }
 }

@@ -21,7 +21,6 @@ public class IngameCountdown extends Countdown {
             id = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), new Runnable() {
                 @Override
                 public void run() {
-                    Bukkit.getConsoleSender().sendMessage("§aSeconds remaining: §6§l" + seconds);
                     if (seconds==0){
                         Main.getManager().getGameStateManager().setGameState(GameState.ENDING_STATE);
                     } else seconds--;

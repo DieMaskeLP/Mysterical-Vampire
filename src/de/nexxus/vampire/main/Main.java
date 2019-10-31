@@ -8,6 +8,7 @@ import de.nexxus.vampire.listener.*;
 import de.nexxus.vampire.manager.ConfigFileUtil;
 import de.nexxus.vampire.manager.Manager;
 import de.nexxus.vampire.testcommand.StartGameStateCommand;
+import de.robingrether.idisguise.api.DisguiseAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,6 +29,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable(){
+        Manager.disguiseAPI = getServer().getServicesManager().getRegistration(DisguiseAPI.class).getProvider();
         manager = new Manager();
         plugin = this;
         init();
@@ -49,6 +51,8 @@ public class Main extends JavaPlugin {
         registerListener(new DeathListener());
         registerListener(new InventoryListener());
         registerListener(new BuildListener());
+        registerListener(new SpaceListener());
+        registerListener(new DamageListener());
         getCommand("setup").setExecutor(new SetupCommand());
         getCommand("state").setExecutor(new StartGameStateCommand());
         getCommand("build").setExecutor(new BuildCommand());

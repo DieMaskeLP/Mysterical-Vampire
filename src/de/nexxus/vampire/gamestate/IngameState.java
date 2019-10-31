@@ -2,6 +2,7 @@ package de.nexxus.vampire.gamestate;
 
 //Created by MrKompetnz on 10/21/19
 
+import de.nexxus.vampire.countdown.Countdown;
 import de.nexxus.vampire.countdown.IngameCountdown;
 import de.nexxus.vampire.countdown.LobbyCountdown;
 import de.nexxus.vampire.main.Main;
@@ -26,6 +27,7 @@ public class IngameState extends GameState {
         Main.getManager().getIngameCountdown().start();
         LocationUtil util = new LocationUtil();
         for (Player t : Main.getManager().getRoleManager().players){
+            t.setCanPickupItems(false);
             if (Main.getManager().getRoleManager().getPlayerRole(t) == Roles.VAMPIRE){
                 t.setDisplayName("§4" + t.getDisplayName());
                 t.setPlayerListName(t.getDisplayName());
@@ -53,7 +55,7 @@ public class IngameState extends GameState {
                     potionEffect2.apply(t);
                     potionEffect.apply(t);
                     ItemBuilder builder = new ItemBuilder("Helm", Material.CHAINMAIL_HELMET, 1);
-                    t.getInventory().setBoots(builder.build());
+                    t.getInventory().setHelmet(builder.build());
                     builder.setItemBuilder("Brustplatte", Material.LEATHER_CHESTPLATE, 1);
                     t.getInventory().setChestplate(builder.build());
                     builder.setItemBuilder("Schuhe", Material.LEATHER_BOOTS, 1);
@@ -71,9 +73,6 @@ public class IngameState extends GameState {
     @Override
     public void stop() {
         System.out.println("IngameState stopped!");
-        IngameCountdown ingameCountdown = Main.getManager().getIngameCountdown();
-        if (ingameCountdown.isRunning()){
-            ingameCountdown.stop();
-        }
+        Main.getManager().getIngameCountdown().stop();
     }
 }

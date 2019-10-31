@@ -6,6 +6,7 @@ public abstract class Countdown {
 
     protected int taskID;
 
+    public abstract boolean isRunning();
     public abstract void start();
     public abstract void stop();
 }

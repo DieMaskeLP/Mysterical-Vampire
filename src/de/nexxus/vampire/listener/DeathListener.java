@@ -25,11 +25,23 @@ public class DeathListener implements Listener {
             if (roleManager.getPlayerRole(killer) == Roles.VAMPIRE){
                 if (roleManager.getPlayerRole(p) == Roles.SURVIVOR){
                     Bukkit.broadcastMessage(Data.PREFIX + "§cDer §4Vampire §chat §a" + p.getName() + " §cgetötet!");
+                    boolean allSurvivorsDead = true;
+                    for (Player t : Bukkit.getServer().getOnlinePlayers()){
+                        if (Main.getManager().getRoleManager().getPlayerRole(t) == Roles.SURVIVOR){
+                            allSurvivorsDead = false;
+                        }
+                    }
+                    if (allSurvivorsDead){
+                        Bukkit.broadcastMessage(Data.PREFIX + "§aDer §4Vampire §ahat gewonnen!");
+                        Main.getManager().getGameStateManager().setGameState(GameState.ENDING_STATE);
+                    }
                 }
             }
             if (roleManager.getPlayerRole(killer) == Roles.SURVIVOR){
                 if (roleManager.getPlayerRole(p) == Roles.VAMPIRE){
-                    Bukkit.broadcastMessage(Data.PREFIX + "§cDer §aSurvivor §6" + killer.getName() +" §chat §c" + p.getName() + " §cgetötet!");
+                    Bukkit.broadcastMessage(Data.PREFIX + "§cDer §aSurvivor §6" + killer.getName() +" §chat den Vampire §4" + p.getName() + " §cgetötet!");
+                    Bukkit.broadcastMessage(Data.PREFIX + "§aDie Survivor haben gewonnen!");
+                    Main.getManager().getGameStateManager().setGameState(GameState.ENDING_STATE);
                 }
             }
 

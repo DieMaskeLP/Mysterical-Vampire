@@ -2,8 +2,14 @@ package de.nexxus.vampire.gamestate;
 
 //Created by MrKompetnz on 10/21/19
 
+import de.nexxus.vampire.countdown.Countdown;
+import de.nexxus.vampire.main.Main;
+import de.nexxus.vampire.manager.Manager;
+import de.nexxus.vampire.utils.LocationUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
 
 import java.io.File;
 
@@ -13,6 +19,28 @@ public class EndingState extends GameState {
     public void start() {
         System.out.println("EndingState started!");
 
+
+        for (Player player : Bukkit.getServer().getOnlinePlayers()){
+            player.setMaxHealth(10);
+            player.setHealth(player.getMaxHealth());
+            player.setAllowFlight(false);
+            if (Manager.disguiseAPI.isDisguised(player)) Manager.disguiseAPI.undisguise(player);
+            for (PotionEffect potionEffect : player.getActivePotionEffects()){
+                player.removePotionEffect(potionEffect.getType());
+            }
+            LocationUtil locationUtil = new LocationUtil("End");
+            if(locationUtil.loadLocation() != null) {
+                player.teleport(locationUtil.loadLocation());
+            } else
+                Bukkit.getConsoleSender().sendMessage("§cDie End-Location wurde noch nicht gesetzt!");
+        }
+        Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), new Runnable() {
+            @Override
+            public void run() {
+                Main.getManager().getEndingCountdown().start();
+            }
+        }, 80);
+
     }
 
     @Override
@@ -20,21 +48,9 @@ public class EndingState extends GameState {
         for (Player t : Bukkit.getServer().getOnlinePlayers()){
             t.kickPlayer("§cServer is shutting down!");
         }
+        Main.getManager().getEndingCountdown().stop();
         Bukkit.getServer().reload();
     }
 
-    public boolean deleteWorld(File path) {
-        if(path.exists()) {
-            File files[] = path.listFiles();
-            for(int i=0; i<files.length; i++) {
-                if(files[i].isDirectory()) {
-                    deleteWorld(files[i]);
-                } else {
-                    files[i].delete();
-                }
-            }
-        }
-        return(path.delete());
-    }
 
 }

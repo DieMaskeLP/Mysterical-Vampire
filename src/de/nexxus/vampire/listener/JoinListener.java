@@ -21,6 +21,10 @@ public class JoinListener implements Listener {
     public void onJoin(PlayerJoinEvent e){
         Manager manager = Main.getManager();
         Player player = e.getPlayer();
+        player.setMaxHealth(20);
+        player.setHealth(player.getMaxHealth());
+        player.setAllowFlight(false);
+        if (Manager.disguiseAPI.isDisguised(player)) Manager.disguiseAPI.undisguise(player);
         for (PotionEffect potionEffect : player.getActivePotionEffects()){
             player.removePotionEffect(potionEffect.getType());
         }
