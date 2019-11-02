@@ -3,9 +3,12 @@ package de.nexxus.vampire.gamestate;
 //Created by MrKompetnz on 10/21/19
 
 import de.nexxus.vampire.countdown.Countdown;
+import de.nexxus.vampire.listener.DeathListener;
 import de.nexxus.vampire.main.Main;
 import de.nexxus.vampire.manager.Manager;
+import de.nexxus.vampire.manager.Roles;
 import de.nexxus.vampire.utils.LocationUtil;
+import jdk.nashorn.internal.runtime.regexp.joni.constants.StackPopLevel;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -34,9 +37,10 @@ public class EndingState extends GameState {
             LocationUtil locationUtil = new LocationUtil("End");
             if(locationUtil.loadLocation() != null) {
                 player.teleport(locationUtil.loadLocation());
-            } else
-                Bukkit.getConsoleSender().sendMessage("§cDie End-Location wurde noch nicht gesetzt!");
+            } else Bukkit.getConsoleSender().sendMessage("§cDie End-Location wurde noch nicht gesetzt!");
+
         }
+
         Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getPlugin(), new Runnable() {
             @Override
             public void run() {

@@ -2,9 +2,11 @@ package de.nexxus.vampire.gamestate;
 
 //Created by MrKompetnz on 10/21/19
 
+import com.connorlinfoot.titleapi.TitleAPI;
 import de.nexxus.vampire.countdown.Countdown;
 import de.nexxus.vampire.countdown.IngameCountdown;
 import de.nexxus.vampire.countdown.LobbyCountdown;
+import de.nexxus.vampire.listener.DeathListener;
 import de.nexxus.vampire.main.Main;
 import de.nexxus.vampire.manager.Roles;
 import de.nexxus.vampire.utils.ItemBuilder;
@@ -34,6 +36,7 @@ public class IngameState extends GameState {
         Main.getManager().getIngameCountdown().start();
         LocationUtil util = new LocationUtil();
         for (Player t : Main.getManager().getRoleManager().players){
+            t.getInventory().setHeldItemSlot(0);
             t.setHealth(t.getMaxHealth());
             t.setFoodLevel(2000);
             t.setCanPickupItems(false);
@@ -44,7 +47,7 @@ public class IngameState extends GameState {
                 PotionEffect potionEffect2 = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 99999999, 1, true, false);
                 potionEffect2.apply(t);
                 potionEffect.apply(t);
-                t.sendTitle("§6Rolle: §4Vampire", "§cFinde die Survivor und saug deren §4Blut §caus!");
+                TitleAPI.sendTitle(t, 0, 5, 2, "§6Rolle: §4Vampire", "§cFinde die Survivor und saug deren §4Blut §caus!");
                 ItemBuilder builder = new ItemBuilder("§4§lBlut Axt", Material.DIAMOND_AXE,1);
                 builder.setEnchantment(Enchantment.DAMAGE_ALL, 1, true);
                 builder.setLore("§cKöpfe hiermit die §aSurvivor!", "§cUnd bekomme mehr Fähigkeiten");
@@ -66,6 +69,7 @@ public class IngameState extends GameState {
                             if (ticks == 20){
                                 seconds--;
                                 ticks = 0;
+                                TitleAPI.sendSubtitle(t, 20, 30, 20, "§cDu kannst dich in §6" + seconds + " Sekunden §cwieder bewegen!");
                             }
                         }
                     }
@@ -86,7 +90,7 @@ public class IngameState extends GameState {
                     t.getInventory().setBoots(builder.build());
                     builder.setItemBuilder("Holz-Schwert", Material.WOOD_SWORD, 1);
                     t.setItemInHand(builder.build());
-                    t.sendTitle("§6Rolle: §aSurvivor", "§cFange den §4Vampire §cund nehme sein Leben!");
+                    TitleAPI.sendTitle(t, 20, 100, 40, "§6Rolle: §aSurvivor", "§cFange den §4Vampire §cund nehme sein Leben!");
                     util.setPath("Survivor");
                     if (util.loadLocation() != null){
                         t.teleport(util.loadLocation());
@@ -100,6 +104,12 @@ public class IngameState extends GameState {
     public void stop() {
         System.out.println("IngameState stopped!");
         Main.getManager().getIngameCountdown().stop();
+        for (Player t : Bukkit.getServer().getOnlinePlayers()){
+            if (Main.getManager().getRoleManager().getPlayerRole(t) == Roles.VAMPIRE){
+                DeathListener.end(t);
+            }
+        }
+
     }
 
     @Override

@@ -1,5 +1,6 @@
 package de.nexxus.vampire.manager;
 
+import com.connorlinfoot.titleapi.TitleAPI;
 import de.nexxus.vampire.countdown.*;
 import de.nexxus.vampire.gamestate.GameStateManager;
 import de.nexxus.vampire.main.Main;
@@ -16,7 +17,6 @@ public class Manager {
     private static LobbyCountdown lobbyCountdown;
     private static IngameCountdown ingameCountdown;
     private static EndingCountdown endingCountdown;
-
     public LobbyCountdown getLobbyCountdown() {
         return lobbyCountdown;
     }

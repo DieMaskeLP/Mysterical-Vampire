@@ -1,5 +1,6 @@
 package de.nexxus.vampire.listener;
 
+import com.connorlinfoot.titleapi.TitleAPI;
 import de.nexxus.vampire.gamestate.GameState;
 import de.nexxus.vampire.main.Main;
 import de.nexxus.vampire.manager.Manager;
@@ -14,10 +15,24 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import javax.swing.*;
 
 public class DeathListener implements Listener {
+
+    private static int id;
+
+    private static boolean isRunning = false;
+    public static void end(Player target){
+        if (isRunning){
+            isRunning = false;
+            Bukkit.getScheduler().cancelTask(id);
+            target.removePotionEffect(PotionEffectType.BLINDNESS);
+        }
+    }
 
     @EventHandler
     public void onKill(PlayerDeathEvent e){
@@ -59,6 +74,29 @@ public class DeathListener implements Listener {
                         util.setPath("Vampire");
                         p.teleport(util.loadLocation());
                         p.setGameMode(GameMode.SURVIVAL);
+                        PotionEffectType type = PotionEffectType.BLINDNESS;
+                        PotionEffect potionEffect = new PotionEffect(type, 5, 99999);
+                        e.getEntity().addPotionEffect(potionEffect);
+                        id = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), new Runnable() {
+                            private int seconds = 10, ticks = 0;
+                            @Override
+                            public void run() {
+                                isRunning = true;
+                                ticks++;
+                                if (ticks==20){
+                                    ticks = 0;
+                                    seconds--;
+                                }
+                                if (seconds == 0){
+                                    end(e.getEntity());
+                                }
+                                TitleAPI.sendSubtitle(e.getEntity(), 20, 100, 20, "§cDu kannst dich in §6" + seconds + " Sekunden §cwieder bewegen!");
+                                LocationUtil util = new LocationUtil("Vampire");
+                                if (util.loadLocation() != null){
+                                    e.getEntity().teleport(util.loadLocation());
+                                } else System.err.println("Der Vampire-Spawn wurde nochnicht gesetzt!");
+                            }
+                        }, 0, 1);
                     }
                 }
             }
