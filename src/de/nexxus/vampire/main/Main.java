@@ -51,6 +51,7 @@ public class Main extends JavaPlugin {
         registerListener(new BuildListener());
         registerListener(new SpaceListener());
         registerListener(new DamageListener());
+        registerListener(new ChatListener());
         getCommand("setup").setExecutor(new SetupCommand());
         getCommand("state").setExecutor(new StartGameStateCommand());
         getCommand("build").setExecutor(new BuildCommand());
