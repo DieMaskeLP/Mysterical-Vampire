@@ -13,8 +13,13 @@ import de.nexxus.vampire.utils.ItemBuilder;
 import de.nexxus.vampire.utils.LocationUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -35,10 +40,21 @@ public class IngameState extends GameState {
         Main.getManager().getRoleManager().calculateRoles();
         Main.getManager().getIngameCountdown().start();
         LocationUtil util = new LocationUtil();
+        util.setPath("Vampire");
+        if (util.loadLocation() != null){
+            World world = Bukkit.getServer().getWorld(util.loadLocation().getWorld().getName());
+            world.setMonsterSpawnLimit(0);
+            for (LivingEntity entity : world.getLivingEntities()){
+                if (entity.getType() != EntityType.PLAYER){
+                    entity.setHealth(0);
+                }
+            }
+        }
         for (Player t : Main.getManager().getRoleManager().players){
-            t.getInventory().setHeldItemSlot(0);
+            PlayerInventory playerInventory = (PlayerInventory) t.getInventory();
+            playerInventory.setHeldItemSlot(0);
             t.setHealth(t.getMaxHealth());
-            t.setFoodLevel(2000);
+            t.setFoodLevel(20000);
             t.setCanPickupItems(false);
             if (Main.getManager().getRoleManager().getPlayerRole(t) == Roles.VAMPIRE){
                 t.setDisplayName("§4" + t.getDisplayName());
@@ -69,7 +85,7 @@ public class IngameState extends GameState {
                             if (ticks == 20){
                                 seconds--;
                                 ticks = 0;
-                                TitleAPI.sendSubtitle(t, 20, 30, 20, "§cDu kannst dich in §6" + seconds + " Sekunden §cwieder bewegen!");
+                                TitleAPI.sendTitle(t, 20, 30, 20, "", "§cDu kannst dich in §6" + seconds + " Sekunden §cwieder bewegen!");
                             }
                         }
                     }
