@@ -3,11 +3,10 @@ package de.nexxus.vampire.gamestate;
 //Created by MrKompetnz on 10/21/19
 
 import com.connorlinfoot.titleapi.TitleAPI;
-import de.nexxus.vampire.countdown.Countdown;
-import de.nexxus.vampire.countdown.IngameCountdown;
 import de.nexxus.vampire.countdown.LobbyCountdown;
 import de.nexxus.vampire.listener.DeathListener;
 import de.nexxus.vampire.main.Main;
+import de.nexxus.vampire.manager.RoleManager;
 import de.nexxus.vampire.manager.Roles;
 import de.nexxus.vampire.utils.ItemBuilder;
 import de.nexxus.vampire.utils.LocationUtil;
@@ -15,7 +14,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -51,7 +49,7 @@ public class IngameState extends GameState {
             }
         }
         for (Player t : Main.getManager().getRoleManager().players){
-            PlayerInventory playerInventory = (PlayerInventory) t.getInventory();
+            PlayerInventory playerInventory = t.getInventory();
             playerInventory.setHeldItemSlot(0);
             t.setHealth(t.getMaxHealth());
             t.setFoodLevel(20000);
@@ -59,10 +57,6 @@ public class IngameState extends GameState {
             if (Main.getManager().getRoleManager().getPlayerRole(t) == Roles.VAMPIRE){
                 t.setDisplayName("§4" + t.getDisplayName());
                 t.setPlayerListName(t.getDisplayName());
-                PotionEffect potionEffect = new PotionEffect(PotionEffectType.NIGHT_VISION, 99999999, 5, true, false);
-                PotionEffect potionEffect2 = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 99999999, 1, true, false);
-                potionEffect2.apply(t);
-                potionEffect.apply(t);
                 TitleAPI.sendTitle(t, 0, 5, 2, "§6Rolle: §4Vampire", "§cFinde die Survivor und saug deren §4Blut §caus!");
                 ItemBuilder builder = new ItemBuilder("§4§lBlut Axt", Material.DIAMOND_AXE,1);
                 builder.setEnchantment(Enchantment.DAMAGE_ALL, 1, true);
@@ -77,6 +71,18 @@ public class IngameState extends GameState {
                 id = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), new Runnable() {
                     @Override
                     public void run() {
+                        if (seconds==5){
+                            for (Player t : Main.getManager().getRoleManager().players){
+                                RoleManager manager = Main.getManager().getRoleManager();
+                                if (manager.getPlayerRole(t)==Roles.SURVIVOR){
+                                    PotionEffect potionEffect = new PotionEffect(PotionEffectType.NIGHT_VISION, 99999999, 5, true, false);
+                                    PotionEffect potionEffect2 = new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 99999999, 1, true, false);
+                                    potionEffect2.apply(t);
+                                    potionEffect.apply(t);
+                                }
+                            }
+                        }
+
                         if (seconds==0){
                             end();
                         } else {
