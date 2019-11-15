@@ -90,7 +90,7 @@ public class DeathListener implements Listener {
                                 if (seconds == 0){
                                     end(e.getEntity());
                                 }
-                                TitleAPI.sendSubtitle(e.getEntity(), 20, 100, 20, "§cDu kannst dich in §6" + seconds + " Sekunden §cwieder bewegen!");
+                                TitleAPI.sendTitle(e.getEntity(), 20, 100, 20, "", "§cDu kannst dich in §6" + seconds + " Sekunden §cwieder bewegen!");
                                 LocationUtil util = new LocationUtil("Vampire");
                                 if (util.loadLocation() != null){
                                     e.getEntity().teleport(util.loadLocation());
