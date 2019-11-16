@@ -8,6 +8,8 @@ import de.nexxus.vampire.listener.DeathListener;
 import de.nexxus.vampire.main.Main;
 import de.nexxus.vampire.manager.RoleManager;
 import de.nexxus.vampire.manager.Roles;
+import de.nexxus.vampire.stats.SQLStats;
+import de.nexxus.vampire.utils.Data;
 import de.nexxus.vampire.utils.ItemBuilder;
 import de.nexxus.vampire.utils.LocationUtil;
 import org.bukkit.Bukkit;
@@ -31,6 +33,9 @@ public class IngameState extends GameState {
 
     @Override
     public void start() {
+        for(Player player : Main.players) {
+            SQLStats.addGame(Data.getUUID(player));
+        }
         LobbyCountdown countdown = Main.getManager().getLobbyCountdown();
         if (countdown.isRunning()) countdown.stop();
 

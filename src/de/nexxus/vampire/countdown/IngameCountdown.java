@@ -7,20 +7,18 @@ import de.nexxus.vampire.main.Main;
 import de.nexxus.vampire.manager.Roles;
 import de.nexxus.vampire.utils.Data;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class IngameCountdown extends Countdown {
 
 
-    private int seconds = 300, id;
+    private int seconds = 480, id;
     private boolean isRunning = false;
 
     public void updateScoreboard(){
@@ -34,20 +32,22 @@ public class IngameCountdown extends Countdown {
                 survivor++;
             }
         }
-        Score survivors = objective.getScore("§aSurvivors: " + survivor);
+        Score survivors = objective.getScore("§a§lSurvivors: §l" + survivor);
         survivors.setScore(99);
         Score vampire;
         for (Player t : Bukkit.getServer().getOnlinePlayers()){
             if (Main.getManager().getRoleManager().getPlayerRole(t) == Roles.VAMPIRE){
-                vampire = objective.getScore("§4Vampire: §c" + t.getDisplayName());
+                vampire = objective.getScore("§4§lVampire: §c§l" + t.getDisplayName());
                 vampire.setScore(98);
             }
         }
+
+
         int sec = seconds%60;
         int minutes = (int) TimeUnit.SECONDS.toMinutes(seconds);
         String time = minutes + ":" + sec;
 
-        Score timeScore = objective.getScore("§eZeit: §6" + time);
+        Score timeScore = objective.getScore("§e§lZeit: §6§l" + time);
         timeScore.setScore(100);
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
         for (Player t : Bukkit.getServer().getOnlinePlayers()){

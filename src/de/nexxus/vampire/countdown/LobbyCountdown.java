@@ -25,6 +25,7 @@ public class LobbyCountdown extends Countdown {
     private int seconds;
     private int idleID;
     private static LobbyCountdown instance;
+    private IngameCountdown ingameCountdown;
 
     private boolean isRunning = false;
     private boolean isIdling = false;
@@ -36,6 +37,7 @@ public class LobbyCountdown extends Countdown {
         this.gameStateManager = gameStateManager;
         seconds = COUNTDOWN_TIME;
         instance = this;
+        ingameCountdown = new IngameCountdown();
     }
 
     @Override
@@ -45,6 +47,9 @@ public class LobbyCountdown extends Countdown {
             taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), new Runnable() {
                 @Override
                 public void run() {
+                    for(Player current : Main.players) {
+                        current.setLevel(seconds);
+                    }
                     switch (seconds) {
                         case 60: case 30: case 20: case 10: case 5: case 4: case 3: case 2:
                             Bukkit.broadcastMessage(Data.PREFIX + "§7Das Spiel startet in §a" + seconds + " §7Sekunden.");
@@ -54,6 +59,7 @@ public class LobbyCountdown extends Countdown {
                             break;
                         case 0:
                             gameStateManager.setGameState(GameState.INGAME_STATE);
+                            ingameCountdown.start();
                             break;
                     }
                     seconds--;

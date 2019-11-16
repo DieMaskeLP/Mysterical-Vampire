@@ -4,6 +4,7 @@ import de.nexxus.vampire.countdown.LobbyCountdown;
 import de.nexxus.vampire.gamestate.GameState;
 import de.nexxus.vampire.main.Main;
 import de.nexxus.vampire.manager.*;
+import de.nexxus.vampire.stats.SQLStats;
 import de.nexxus.vampire.utils.Data;
 import de.nexxus.vampire.utils.LocationUtil;
 import org.bukkit.Bukkit;
@@ -44,6 +45,7 @@ public class JoinListener implements Listener {
                 player.kickPlayer("§cDas Spiel endet gerade!");
             } else {
                 if (manager.getGameStateManager().isCurrentGameState(GameState.LOBBY_STATE)){
+                    if(!SQLStats.playerExists(player.getUniqueId().toString())) SQLStats.createPlayer(player.getUniqueId().toString());
                     e.setJoinMessage(Data.PREFIX + "§6" + e.getPlayer().getName() + " §8ist dem Spiel beigetreten.");
 
                     /* Teleport the player to the lobby spawn

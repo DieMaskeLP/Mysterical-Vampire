@@ -24,4 +24,8 @@ public enum Roles {
     public ChatColor getChatColor() {
         return chatColor;
     }
+
+    public String getTeamNameWithColor() {
+        return getChatColor() + getName();
+    }
 }

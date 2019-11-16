@@ -1,13 +1,10 @@
 package de.nexxus.vampire.manager;
 
-import com.connorlinfoot.titleapi.TitleAPI;
-import de.nexxus.vampire.countdown.*;
+import de.nexxus.vampire.countdown.EndingCountdown;
+import de.nexxus.vampire.countdown.IngameCountdown;
+import de.nexxus.vampire.countdown.LobbyCountdown;
 import de.nexxus.vampire.gamestate.GameStateManager;
-import de.nexxus.vampire.main.Main;
 import de.robingrether.idisguise.api.DisguiseAPI;
-import de.robingrether.idisguise.disguise.Disguise;
-import de.robingrether.idisguise.management.DisguiseManager;
-import org.bukkit.entity.Entity;
 
 public class Manager {
 
@@ -17,6 +14,7 @@ public class Manager {
     private static LobbyCountdown lobbyCountdown;
     private static IngameCountdown ingameCountdown;
     private static EndingCountdown endingCountdown;
+
     public LobbyCountdown getLobbyCountdown() {
         return lobbyCountdown;
     }
