@@ -13,6 +13,7 @@ public class BuildListener implements Listener {
         e.setCancelled(!Data.builder.contains(e.getPlayer()));
     }
 
+
     @EventHandler
     public void onBreak(BlockBreakEvent e){
         e.setCancelled(!Data.builder.contains(e.getPlayer()));

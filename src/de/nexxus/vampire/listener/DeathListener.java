@@ -34,6 +34,7 @@ public class DeathListener implements Listener {
         }
     }
 
+
     @EventHandler
     public void onKill(PlayerDeathEvent e){
         e.setDeathMessage("");
