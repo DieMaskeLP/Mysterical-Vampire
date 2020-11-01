@@ -6,6 +6,7 @@ import de.nexxus.vampire.main.Main;
 import de.nexxus.vampire.manager.Manager;
 import de.nexxus.vampire.manager.RoleManager;
 import de.nexxus.vampire.manager.Roles;
+import de.nexxus.vampire.stats.SQLStats;
 import de.nexxus.vampire.utils.Data;
 import de.nexxus.vampire.utils.LocationUtil;
 import org.bukkit.Bukkit;
@@ -51,6 +52,12 @@ public class DeathListener implements Listener {
             if (roleManager.getPlayerRole(killer) == Roles.VAMPIRE){
                 if (roleManager.getPlayerRole(p) == Roles.SURVIVOR){
                     roleManager.setPlayerRole(p, Roles.SPECTATOR);
+
+                    // Setting player-stats here
+
+                    SQLStats.addSurvivorDeath(Data.getUUID(p));
+                    SQLStats.addVampireKill(Data.getUUID(killer));
+
                     p.setPlayerListName("");
                     Bukkit.broadcastMessage(Data.PREFIX + "§cDer §4Vampire §chat §a" + p.getName() + " §cgetötet!");
                     boolean allSurvivorsDead = true;
@@ -60,14 +67,21 @@ public class DeathListener implements Listener {
                         }
                     }
                     if (allSurvivorsDead){
+                        SQLStats.addWin(Data.getUUID(killer));
                         Bukkit.broadcastMessage(Data.PREFIX + "§aDer §4Vampire §ahat gewonnen!");
                         Main.getManager().getGameStateManager().setGameState(GameState.ENDING_STATE);
                     }
                 }
+
             }
             if (roleManager.getPlayerRole(killer) == Roles.SURVIVOR){
                 if (roleManager.getPlayerRole(p) == Roles.VAMPIRE){
                     if (killer.getItemInHand().getType() == Material.DIAMOND_SWORD){
+                        for(Player current : Bukkit.getOnlinePlayers()) {
+                            if(Main.getManager().getRoleManager().getPlayerRole(current) == Roles.SURVIVOR) {
+                                SQLStats.addWin(Data.getUUID(current));
+                            }
+                        }
                         Bukkit.broadcastMessage(Data.PREFIX + "§cDer §aSurvivor §6" + killer.getName() +" §chat den Vampire §4" + p.getName() + " §cgetötet!");
                         Bukkit.broadcastMessage(Data.PREFIX + "§aDie Survivor haben gewonnen!");
                         Main.getManager().getGameStateManager().setGameState(GameState.ENDING_STATE);

@@ -2,10 +2,8 @@ package de.nexxus.vampire.commands;
 
 //Created by MrKompetnz on 10/21/19
 
-import de.nexxus.vampire.main.Main;
 import de.nexxus.vampire.utils.Data;
 import de.nexxus.vampire.utils.LocationUtil;
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
