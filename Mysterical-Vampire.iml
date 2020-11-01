@@ -10,11 +10,11 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://S:/Minecraft Server (Spigot 1.8)/start.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Minecraft Server (Spigot 1.8)/start.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="jar://S:/Minecraft Server (Spigot 1.8)/start.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Minecraft Server (Spigot 1.8)/start.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
@@ -37,5 +37,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="libs" level="project" />
   </component>
 </module>

@@ -22,7 +22,7 @@ public class SQLStats {
 
     public static void createPlayer(String uuid) {
         if(!playerExists(uuid)) {
-            MySQL.update("INSERT INTO Stats(UUID, GAMESPLAYED, KILLS, VAMPIREKILLS, SURVIVORKILLS, DEATHS, VAMPIREDEATHS, SURVIVORDEATHS, GAMESWON) VALUES ('" + uuid + "', '0', '0', '0','0', '0', '0');");
+            MySQL.update("INSERT INTO Stats(UUID, GAMESPLAYED, KILLS, VAMPIREKILLS, SURVIVORKILLS, DEATHS, VAMPIREDEATHS, SURVIVORDEATHS, GAMESWON) VALUES ('" + uuid + "', '0', '0', '0','0', '0', '0', '0', '0');");
         }
     }
 

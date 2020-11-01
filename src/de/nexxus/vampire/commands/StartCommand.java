@@ -21,12 +21,12 @@ public class StartCommand implements CommandExecutor {
             Player player = (Player) sender;
             if(player.hasPermission("vampire.start")) {
                 if(args.length == 0) {
-                    if(Main.getManager().getGameStateManager().isCurrentGameState(GameState.LOBBY_STATE)) {
+                    if(Main.getManager().getGameStateManager().isCurrentGameState(GameState.LOBBY_STATE) || Main.getManager().getGameStateManager().getCurrentGameState() == null) {
                         LobbyCountdown getLobbyCountdown = Main.getManager().getLobbyCountdown();
                         if(getLobbyCountdown.isRunning() && getLobbyCountdown.getSeconds() > START_SECONDS) {
                             getLobbyCountdown.setSeconds(START_SECONDS);
                             player.sendMessage(Data.PREFIX + "§aDer Spielstart wurde beschleunigt!");
-                        } else player.sendMessage(Data.PREFIX + "§cDas Spiel ist bereits gestartet.");
+                        } else player.sendMessage(Data.PREFIX + "§cStarten nicht möglich.");
                     } else player.sendMessage(Data.PREFIX + "§cDas Spiel ist bereits gestartet.");
                 } else player.sendMessage(Data.PREFIX + "§cBitte benutze §6/start§c!");
             } else player.sendMessage(Data.NO_PERMISSION);

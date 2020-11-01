@@ -70,6 +70,10 @@ public class Main extends JavaPlugin {
         getCommand("stats").setExecutor(new StatsCommand());
     }
 
+    public static void main(String[] args) {
+
+    }
+
     private void initMySQL() {
         MySQL.connect();
         MySQL.createTable();

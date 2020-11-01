@@ -13,8 +13,8 @@ public class StartGameStateCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (commandSender instanceof Player){
             Player p = (Player) commandSender;
+            Manager manager = Main.getManager();
             if (strings.length>0){
-                Manager manager = Main.getManager();
                 switch (strings[0]){
                     case "ingame":
                         manager.getGameStateManager().setGameState(GameState.INGAME_STATE);
@@ -27,6 +27,8 @@ public class StartGameStateCommand implements CommandExecutor {
                         manager.getGameStateManager().setGameState(GameState.ENDING_STATE);
                         break;
                 }
+            } else {
+                p.sendMessage("Current state: " + manager.getGameStateManager().getCurrentGameState());
             }
         }
 

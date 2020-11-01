@@ -28,7 +28,7 @@ public class MySQL {
     }
 
     public static boolean isConnected() {
-        return (connection == null ? false : true);
+        return (connection != null);
     }
 
     public static void disconnect() {
@@ -49,7 +49,7 @@ public class MySQL {
             statement.close();
         } catch (SQLException e) {
             connect();
-            System.err.println(e);
+            e.printStackTrace();
         }
     }
 
@@ -61,7 +61,7 @@ public class MySQL {
             resultSet = statement.executeQuery(query);
         } catch (SQLException e) {
             connect();
-            System.err.println(e);
+            e.printStackTrace();
         }
         return resultSet;
     }

@@ -46,6 +46,8 @@ public class StatsCommand implements CommandExecutor {
                         player.sendMessage("§5Survivordeaths: §7" + SQLStats.getSurvivorDeaths(uuid));
                         player.sendMessage("§5Survivor-K/D: §7" + formatter.format(survivorKD));
                         player.sendMessage("§5Winchance: §7" + formatter.format(winchance) + "%");
+                    } else {
+                        player.sendMessage("Für dich gibt es noch keine Stats!");
                     }
                 } else if(args.length == 1) {
                     if(args[0].equalsIgnoreCase("reset")) {
