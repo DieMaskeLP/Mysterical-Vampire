@@ -16,15 +16,21 @@ public class RoleManager {
     private HashMap<Player, Roles> playerRoles;
     public ArrayList<Player> players;
 
-    private int vampires, survivors;
+    private int vampires, survivors, deaths;
 
     public RoleManager() {
         playerRoles = new HashMap<>();
         players = new ArrayList<>();
+        deaths = 0;
     }
 
     public void setPlayerRole(Player player, Roles role){
         playerRoles.put(player, role);
+    }
+
+    public void setDeath(Player player){
+        playerRoles.put(player, Roles.SPECTATOR);
+        deaths += 1;
     }
 
     public void calculateRoles() {
@@ -37,6 +43,10 @@ public class RoleManager {
                 playerRoles.put(t, Roles.SURVIVOR);
             }
         }
+    }
+
+    public int getDeaths(){
+        return deaths;
     }
 
     public Roles getPlayerRole(Player player) {

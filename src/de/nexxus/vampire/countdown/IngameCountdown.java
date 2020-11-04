@@ -26,6 +26,10 @@ public class IngameCountdown extends Countdown {
         Objective objective = scoreboard.registerNewObjective("sbVampire", "Vampire");
         objective.setDisplayName(Data.PREFIX);
 
+        Scoreboard vampireScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+        Objective vampireObjective = vampireScoreboard.registerNewObjective("Vampire", "Vampire");
+        vampireObjective.setDisplayName(Data.PREFIX);
+
         int survivor = 0;
         for (Player t : Bukkit.getServer().getOnlinePlayers()){
             if (Main.getManager().getRoleManager().getPlayerRole(t) == Roles.SURVIVOR){
@@ -35,10 +39,13 @@ public class IngameCountdown extends Countdown {
         Score survivors = objective.getScore("§a§lSurvivors: §l" + survivor);
         survivors.setScore(99);
         Score vampire;
+        vampireObjective.getScore("§aÜberbleibende Opfer: §c§l" + survivor).setScore(99);
         for (Player t : Bukkit.getServer().getOnlinePlayers()){
             if (Main.getManager().getRoleManager().getPlayerRole(t) == Roles.VAMPIRE){
-                vampire = objective.getScore("§4§lVampire: §c§l" + t.getDisplayName());
+                vampire = objective.getScore("§4Vampire: §c§l" + t.getDisplayName());
                 vampire.setScore(98);
+                vampireObjective.getScore("§4Vampire: §c§lDu").setScore(98);
+                vampireObjective.getScore("§cKills: §4§l" + Main.getManager().getRoleManager().getDeaths()).setScore(97);
             }
         }
 
@@ -47,11 +54,16 @@ public class IngameCountdown extends Countdown {
         int minutes = (int) TimeUnit.SECONDS.toMinutes(seconds);
         String time = minutes + ":" + sec;
 
-        Score timeScore = objective.getScore("§e§lZeit: §6§l" + time);
-        timeScore.setScore(100);
+        objective.getScore("§eZeit: §6§l" + time).setScore(100);
+        vampireObjective.getScore("§eZeit: §6§l" + time).setScore(100);
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+        vampireObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
         for (Player t : Bukkit.getServer().getOnlinePlayers()){
-            t.setScoreboard(scoreboard);
+            if (Main.getManager().getRoleManager().getPlayerRole(t) == Roles.VAMPIRE){
+                t.setScoreboard(vampireScoreboard);
+            } else {
+                t.setScoreboard(scoreboard);
+            }
         }
     }
 

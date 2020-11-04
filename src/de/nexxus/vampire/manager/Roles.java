@@ -12,7 +12,7 @@ public enum Roles {
     private String name;
     private ChatColor chatColor;
 
-    private Roles(String name, ChatColor chatColor) {
+    Roles(String name, ChatColor chatColor) {
         this.name = name;
         this.chatColor = chatColor;
     }

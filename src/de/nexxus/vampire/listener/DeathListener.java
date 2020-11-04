@@ -51,7 +51,7 @@ public class DeathListener implements Listener {
             RoleManager roleManager = manager.getRoleManager();
             if (roleManager.getPlayerRole(killer) == Roles.VAMPIRE){
                 if (roleManager.getPlayerRole(p) == Roles.SURVIVOR){
-                    roleManager.setPlayerRole(p, Roles.SPECTATOR);
+                    roleManager.setDeath(p);
 
                     // Setting player-stats here
 
@@ -90,7 +90,7 @@ public class DeathListener implements Listener {
                         p.teleport(util.loadLocation());
                         p.setGameMode(GameMode.SURVIVAL);
                         PotionEffectType type = PotionEffectType.BLINDNESS;
-                        PotionEffect potionEffect = new PotionEffect(type, 5, 99999);
+                        PotionEffect potionEffect = new PotionEffect(type, 4, 99999);
                         e.getEntity().addPotionEffect(potionEffect);
                         id = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(), new Runnable() {
                             private int seconds = 10, ticks = 0;
